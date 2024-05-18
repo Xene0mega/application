@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vos ordinateurs</title>
+    <link rel="stylesheet" href="/voirTout.css">
+</head>
+<body>
+<header class="header">
+    <div class="bande1">
+        <input type="text" placeholder="Rechercher un produit..." class="case">
+        <button class="rechercher" type="submit">Rechercher</button>
+
+        <ul class="align">
+            <li><img class="compte" src="/img/compte1.png"></li>
+            <li><p id="m1">connexion</p></li>
+            <li><p id="slash">|</p></li>
+            <li><img class="panier" src="/img/panier.png"></li>
+            <li><p id="m2">panier</p></li>
+        </ul>
+    </div>
+    <div class="marketplace">
+        <h1 id="p1">MARKET PLACE</h1>
+        <p id="p2">Notre site de vente de matériel informatique</p>
+    </div>
+</header>
+<main class="main">
+    <section class="section1">
+        <ul>
+            <li id="o1"><a href="voirTout.html">Voir tout</a></li>
+            <li id="o2"><a href="ordinateur.html">Ordinateur</a></li>
+            <li id="o3"><a href="tablette.html">Tablette</a></li>
+            <li id="o4"><a href="telephoenPortable.html">téléphone portable</a></li>
+            <li id="o5"><a href="pieceInformatique.html">Pièce informatique</a></li>
+            <li id="o6"><a href="equipementReseau.html">equipement réseau</a></li>
+        </ul>
+    </section>
+   <section class="section2">
+    <h1>Voir tout :</h1>
+       <div class="categories-container">
+            <div class="categorie" th:each="categorie : ${voirTout}">
+            
+                 <a th:href="@{/Produits/Categorie/{idCategorie}(idCategorie=${categorie.idcategorie})}">
+                      <span class="categorie-circle">
+                          <img th:alt="${categorie.nom}" class="image" th:src="@{${categorie.image}}">
+                          <span class="categorie-name" th:text="${categorie.nom}"></span>
+                     </span>
+                 </a>
+           </div>
+      </div>
+</section>
+
+</main>
+<footer class="footer">
+    <h1>acheter :</h1>
+    <ul>
+        <li id="o7">Voir tout</li>
+        <li id="o8">Ordinateur</li>
+        <li id="o9">Tablette</li>
+        <li id="o10">Téléphone portable</li>
+        <li id="o11">Pièce informatique</li>
+        <li id="o12">Équipement réseau</li>
+    </ul>
+</footer>
+</body>
+</html>
