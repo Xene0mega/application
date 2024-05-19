@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vente.application.entities.Categorie;
 import com.vente.application.entities.Produit;
 import com.vente.application.repository.ProduitDao;
 
@@ -25,9 +26,15 @@ public class ProduitService {
 		return produitDao.findAll();
 	}
     public Optional<Produit> getProduitById(Long idProduit){
+
+		Optional<Produit> produit = produitDao.findById(idProduit);
 		
-		return produitDao.findById(idProduit);
-	}
+        if(!produit.isPresent()) {
+
+			throw new IllegalArgumentException("Categorie non trouvé avec ID: " + idProduit);
+		}
+        return produit;
+    }
 	
 	public Produit creerProduit(Produit produit) {
 		return produitDao.save(produit);

@@ -1,7 +1,7 @@
 package com.vente.application.controllers;
 
-import java.util.List; 
-import java.util.Optional; 
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.vente.application.entities.Produit;
 import com.vente.application.services.ProduitService;
+
+import ch.qos.logback.core.model.Model;
 
 @RestController
 @RequestMapping("/Produits")
@@ -27,11 +31,23 @@ public class ProduitController {
 	    	 return produitService.getAllProduits();
 	       
 	    }
-
-	    @GetMapping("/RechercherProduit/{idProduit}")
-	    public Optional<Produit> getProduitById(@PathVariable Long idProduit) {
+	    
+	    @GetMapping("/produitDetail/{idProduit}")
+	    public ModelAndView getProduitDetail(@PathVariable Long idProduit, Model model) {
 	    	
-	        return  produitService.getProduitById(idProduit);
+	        Optional<Produit> optionalProduit = produitService.getProduitById(idProduit);
+	    	ModelAndView modelAndView = new ModelAndView("produitDetail");
+	        
+	        if (optionalProduit.isPresent()) {
+	        	
+	            modelAndView.addObject("produitDetail", optionalProduit.get());
+	            
+	        }else {
+	    
+	            modelAndView.addObject("errorMessage", "Produit non trouvé avec ID: " + idProduit);
+	        }
+	        
+	        return modelAndView;
 	    }
 
 	    @PostMapping("/CreerProduit")
