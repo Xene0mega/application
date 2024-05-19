@@ -24,7 +24,7 @@ public class CategorieService {
    private ProduitDao produitDao;
    
    
-   public List<Categorie> getCategories(){
+   public List<Categorie> getAllCategories(){
 		
 		return categorieDao.findAll();
 	}
@@ -54,9 +54,13 @@ public class CategorieService {
 	public void deleteCategorie(Long idCategorie) {
 		categorieDao.deleteById(idCategorie);
 	}
-	public void deleteAllCategorie() {
-		categorieDao.findAll();
-	}
+	 public void deleteAllCategories() {
+		 
+	        List<Categorie> categories = categorieDao.findAll();
+	        for (Categorie categorie : categories) {
+	            categorieDao.deleteById(categorie.getIdCategorie());
+	        }
+	    }
 	
 	public Categorie ajoutProduitCategorie(Long idCategorie, Long idProduit) {
 		Categorie categorie = categorieDao.findById(idCategorie).orElse(null);
@@ -85,7 +89,7 @@ public class CategorieService {
 		}
 		return categorie;
 	}
-	public Categorie findAllProduitCategorie(Long idCategorie, Long idProduit) {
+	public Categorie findAllProduitCategorie(Long idCategorie) {
 
 		Categorie categorie = categorieDao.findById(idCategorie).orElse(null);
 		

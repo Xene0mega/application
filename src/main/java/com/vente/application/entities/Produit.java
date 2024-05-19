@@ -23,26 +23,26 @@ public class Produit {
 	
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idproduit")
+	@Column(name = "idProduit")
 	private Long idproduit;
    
-	@Column(name = "nom", nullable = false, length = 100)
+	@Column(name = "nomProduit", nullable = false, length = 100)
 	private String nomProduit;
 	
-	@Column(name = "description", nullable = false, length = 1000)
+	@Column(name = "descriptionProduit", nullable = false, length = 1000)
 	private String descriptionProduit;
 	
-	@Column(name = "image", nullable = false, unique=true)
+	@Column(name = "imageProduit", nullable = false, unique=true)
 	private String imageProduit;
 
-	@Column(name = "prix", nullable = false)
+	@Column(name = "prixProduit", nullable = false)
 	private double prixProduit;
 
-	@Column(name = "quantite_en_stock", nullable = false)
+	@Column(name = "quantiteEnStock_Produit", nullable = false)
 	private int quantiteEnStockProduit;
 	
     @ManyToOne
-	@JoinColumn(name ="categorie_id", referencedColumnName="id_categorie")
+	@JoinColumn(name ="categorie_id", nullable=false, referencedColumnName="idCategorie")
 	private Categorie categorie;
 
 }

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "catalogue")
+@Table(name = "categorie")
 @Entity
 @Getter
 @Setter
@@ -26,16 +26,16 @@ public class Categorie {
 	
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name="idcategorie")
-		private Long idcategorie;
+		@Column(name="idCategorie")
+		private Long idCategorie;
 		
-		@Column(name="image", nullable=false, length=20, unique=true)
-		String imageCategorie;
-		
-		@Column(name="nom", nullable=false, length=20, unique=true)
+		@Column(name="nomCategorie", nullable=false, length=20, unique=true)
 		String nomCategorie;
 		
-		@OneToMany(mappedBy = "catalogue")
+		@Column(name="imageCategorie", nullable=false, unique=true)
+		String imageCategorie;
+		
+		@OneToMany(mappedBy = "categorie")
 		private List<Produit> produits;
 
 	

@@ -7,5 +7,5 @@ import com.vente.application.entities.Produit;
 
 public interface ProduitDao extends JpaRepository<Produit, Long> {
 	
-	List<Produit>findByCategorieId(Long idcategorie);
+	List<Produit>findByCategorie_IdCategorie(Long idCategorie);
 }

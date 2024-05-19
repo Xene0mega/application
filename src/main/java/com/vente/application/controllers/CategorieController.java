@@ -1,4 +1,5 @@
-package com.vente.application.controllers;
+package com.vente.application.controllers; 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.vente.application.entities.Categorie;
-import com.vente.application.entities.Produit;
 import com.vente.application.services.CategorieService;
 
 @RestController
 @RequestMapping("/Categories")
+
 public class CategorieController {
 
     @Autowired
@@ -36,13 +36,21 @@ public class CategorieController {
     }
     
     @GetMapping("/AfficherProduitCategorie/{idCategorie}")
-    public ModelAndView afficherToutProduitCategorie(@RequestParam Long idCategorie, @RequestParam Long idProduit, Model model) {
+    public ModelAndView afficherToutProduitCategorie(@PathVariable Long idCategorie, Model model) {
     	ModelAndView modelAndView = new ModelAndView("categorie");
-    	modelAndView.addObject("categorie", categorieService.findAllProduitCategorie(idCategorie, idProduit) );
+    	modelAndView.addObject("categorie", categorieService.findAllProduitCategorie(idCategorie) );
     	
         return modelAndView;
     }
-
+    
+    @GetMapping("/voirTout")
+    public ModelAndView getAllCatgeories(Model model) {
+    	ModelAndView modelAndView = new ModelAndView("voirTout");
+    	modelAndView.addObject("voirTout", categorieService.getAllCategories());
+    	 return modelAndView;
+       
+    }
+ 
     @GetMapping("/RechercherCategorie/{idCategorie}")
     public Optional<Categorie> getCategorieById(@PathVariable Long idCategorie) {
     	
@@ -65,7 +73,14 @@ public class CategorieController {
     public void deleteCategorie(@PathVariable Long idCategorie) {
         categorieService.deleteCategorie(idCategorie);
     }
+    @DeleteMapping("/DeleteAllCategorie")
     public void deleteAllCategorie() {
-        categorieService.deleteAllCategorie();
+        categorieService.deleteAllCategories();
+    }
+
+    @GetMapping("/Categories")
+    public List<Categorie> getAllCategories() {
+    	 return categorieService.getAllCategories();
+       
     }
 }

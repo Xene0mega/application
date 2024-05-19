@@ -121,9 +121,12 @@ body {
     margin-right: 150px;
     
 }
-
-.section1 ul li:hover {
-    color: blue;
+.section1 ul li a{
+	text-decoration: none;
+	color:#333333;
+}
+.section1 ul li a:hover{
+	color: blue;
 }
 
 .section1 {
@@ -223,6 +226,13 @@ body {
 
 .footer ul li:hover {
     color: white;
+}
+.footer ul li a{
+	text-decoration: none;
+	 color: rgba(255, 255, 255, 0.5);
+}
+.footer ul li a:hover{
+	color: white;
 }
 
 .footer {

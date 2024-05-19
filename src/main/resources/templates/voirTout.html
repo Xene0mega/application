@@ -26,27 +26,31 @@
     </div>
 </header>
 <main class="main">
-    <section class="section1">
+     <section class="section1">
         <ul>
-            <li id="o1"><a href="voirTout.html">Voir tout</a></li>
-            <li id="o2"><a href="ordinateur.html">Ordinateur</a></li>
-            <li id="o3"><a href="tablette.html">Tablette</a></li>
-            <li id="o4"><a href="telephoenPortable.html">téléphone portable</a></li>
-            <li id="o5"><a href="pieceInformatique.html">Pièce informatique</a></li>
-            <li id="o6"><a href="equipementReseau.html">equipement réseau</a></li>
+            <li id="o1"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
+            <li id="o2"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
+            <li id="o3"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
+            <li id="o4"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
+            <li id="o5"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
+            <li id="o6"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
         </ul>
     </section>
    <section class="section2">
-    <h1>Voir tout :</h1>
+    <h1 >Voir tout :</h1>
+     <div class="ligneProduit">
+        </div>
        <div class="categories-container">
             <div class="categorie" th:each="categorie : ${voirTout}">
             
-                 <a th:href="@{/Produits/Categorie/{idCategorie}(idCategorie=${categorie.idcategorie})}">
+                 <a th:href="@{/Categories/AfficherProduitCategorie/{idCategorie}(idCategorie=${categorie.idCategorie})}">
                       <span class="categorie-circle">
-                          <img th:alt="${categorie.nom}" class="image" th:src="@{${categorie.image}}">
-                          <span class="categorie-name" th:text="${categorie.nom}"></span>
+                          <img th:alt="${categorie.nomCategorie}" class="image" th:src="@{${categorie.imageCategorie}}">
                      </span>
                  </a>
+                 <a th:href="@{/Categories/AfficherProduitCategorie/{idCategorie}(idCategorie=${categorie.idCategorie})}">     
+                  <span class="categorie-name" th:text="${categorie.nomCategorie}"></span>
+                  </a>
            </div>
       </div>
 </section>
@@ -55,13 +59,13 @@
 <footer class="footer">
     <h1>acheter :</h1>
     <ul>
-        <li id="o7">Voir tout</li>
-        <li id="o8">Ordinateur</li>
-        <li id="o9">Tablette</li>
-        <li id="o10">Téléphone portable</li>
-        <li id="o11">Pièce informatique</li>
-        <li id="o12">Équipement réseau</li>
-    </ul>
+            <li id="o7"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
+            <li id="o8"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
+            <li id="o9"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
+            <li id="o10"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
+            <li id="o11"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
+            <li id="o12"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
+        </ul>
 </footer>
 </body>
 </html>

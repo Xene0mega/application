@@ -59,8 +59,8 @@ public class ProduitService {
 		produitDao.deleteAll();
 	}
 	
-	public List<Produit> getAllProduitsByCategorieId(Long idProduit){
-		return produitDao.findByCategorieId(idProduit);
+	public List<Produit> getAllProduitsByCategorieId(Long idCategorie){
+		return produitDao.findByCategorie_IdCategorie(idCategorie);
 	}
 
 }
