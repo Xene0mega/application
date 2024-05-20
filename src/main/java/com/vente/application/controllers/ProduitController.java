@@ -65,7 +65,7 @@ public class ProduitController {
 	    public void deleteProduit(@PathVariable Long idProduit) {
 	        produitService.deleteProduit(idProduit);
 	    }
-	    @DeleteMapping("/Tout")
+	    @DeleteMapping("/DeleteAllProduit")
 	    public void deleteAllProduit() {
 	        produitService.deleteAllProduit();
 	    }

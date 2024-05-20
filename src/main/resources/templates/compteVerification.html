@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Compte</title>
+    <link rel="stylesheet" href="/compteVerification.css">
+</head>
+<body>
+<header class="header">
+    <div class="marketplace">
+        <h1 id="p1">MARKET PLACE</h1>
+        <p id="p2">Notre site de vente de matériel informatique</p>
+    </div>
+</header>
+<main class="main">
+	 <section class="section2">
+	    <div class="connexion-container">
+	        <h1>Avez-vous un compte?</h1>
+	        <div class="options">
+	              <button class="btn-creer-compte" th:onclick="'location.href=&quot;/Compte/creerCompteForm&quot;'">Creer un compte</button>
+	            <button class="btn-connexion" th:onclick="'location.href=&quot;/Compte/connexion&quot;'">Connexion</button>
+	            
+	        </div>
+	    </div>
+	</section>
+
+</main>
+</body>
+</html>

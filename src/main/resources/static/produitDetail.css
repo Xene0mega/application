@@ -71,19 +71,20 @@ body {
 	margin-top: 20px;
 }
 
-.compte, .panier {
+.facture, .panier {
     width: 31px;
     height: 34px;
     position: absolute;
     top: 20px;
 }
 
-.compte {
-    left: 1300px;
+.facture {
+   left: 1470px;
 }
 
 .panier {
-    left: 1500px;
+    
+     left: 1270px;
 }
 
 /* Styles pour le contenu principal */

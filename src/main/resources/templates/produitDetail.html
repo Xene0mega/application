@@ -12,11 +12,11 @@
     <input type="text" placeholder="Rechercher un produit..." class="case">
     <button class="rechercher" type="submit">Rechercher</button>
     <ul class="align">
-      <li><img class="compte" src="/img/compte1.png"></li>
-      <li><p id="m1">connexion</p></li>
-      <li><p id="slash">|</p></li>
-      <li><img class="panier" src="/img/panier.png"></li>
-      <li><p id="m2">panier</p></li>
+        <li><img class="panier" src="/img/panier.png"></li>
+	    <li><p id="m1">panier</p></li>
+	    <li><p id="slash">|</p></li>
+	    <li><img class="facture" src="/img/compte1.png"></li>
+	    <li><p id="m2">facture</p></li>      
     </ul>
   </div>
   <div class="marketplace">
@@ -36,6 +36,7 @@
     </ul>
   </section>
   <section class="section2">
+  
     <div th:if="${produitDetail != null}">
         <div class="imageProduit">
              <img th:src="@{${produitDetail.imageProduit}}" th:alt="${produitDetail.nomProduit}">
@@ -44,8 +45,8 @@
        		 <h1 th:text="${produitDetail.nomProduit}"></h1>
         	 <p th:text="${produitDetail.descriptionProduit}"></p>
        		 <p th:text="${produitDetail.prixProduit} + ' Franc CFA'"></p>
-       		 <button>Ajouter au panier</button>
-       		 <button>Acheter maintenant</button>
+       		 <button th:onclick="|location.href='@{/Compte/compteVerification}'|">Acheter maintenant</button>
+       		 <button>ajouter au panier</button>
       </div>
     </div>
     <div th:if="${produitDetail == null}">
