@@ -11,9 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-@Entity
 @Table(name = "client")
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
@@ -36,9 +35,14 @@ public class Client {
 
     @Column(name = "adresseClient",length = 50, nullable = false)
     private String adresseClient;
+    
+    @Column(name = "motDePasse",length = 20, nullable = false)
+    private String motDePasseClient;
+
 
     @Column(name = "numeroTelephoneClient",length = 15, nullable = false)
     private String numeroTelephoneClient;
+    
     
     
 }

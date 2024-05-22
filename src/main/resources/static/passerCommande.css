@@ -1,0 +1,84 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Styles pour l'en-tête */
+.header {
+    background-color: #333333;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.marketplace {
+    color: white;
+}
+
+#p1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+#p2 {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Styles pour le formulaire */
+form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+p {
+    font-size: 22px;
+    margin: 15px 0;
+    padding-top:20px;
+     
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+     font-size: 22px;
+}
+span {
+    color: blue;
+}
+
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}

@@ -20,6 +20,8 @@ import com.vente.application.entities.Client;
 import com.vente.application.entities.Compte;
 import com.vente.application.services.CompteService;
 
+import ch.qos.logback.core.model.Model;
+
 
 @RestController
 @RequestMapping("/Compte")
@@ -31,7 +33,7 @@ public class CompteController {
 	
 	
 	@GetMapping("/compteVerification")
-	public ModelAndView compteVerification() {
+	public ModelAndView compteVerification(Model model) {
 		ModelAndView modelAndView = new ModelAndView("compteVerification");
 		return modelAndView;
 	}
@@ -48,23 +50,25 @@ public class CompteController {
     }
 
     @GetMapping("/creerCompteForm")
-    public ModelAndView showCreerCompteForm() {
+    public ModelAndView showCreerCompteForm(Model model) {
     	ModelAndView modelAndView = new ModelAndView("compteCreation");
         modelAndView.addObject("client", new Client());
+       
+        
         return modelAndView; // Le nom de votre fichier HTML pour le formulaire de création de compte
     }
     
     @PostMapping("/creerCompte")
-    public ResponseEntity<String> creerCompte(Client client) {
-    	 try {
-    		    compteService.creerCompte(client);
+    public ResponseEntity<String> creerCompte(Client client,Long idClient) {
+        try {
+        	compteService.creerCompte(client);
+             idClient =client.getIdClient();// Assurez-vous que cette méthode retourne l'ID du client créé
 
-             return ResponseEntity.ok("Compte créé avec succès");
-             
-         } catch (Exception e) {
-             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du compte");
-         }
-     }
+            return ResponseEntity.ok(idClient.toString()); // Retournez l'ID du client dans la réponse
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du compte");
+        }
+    }
 
     @PutMapping("/modifierCompte/{idCompte}")
     public Compte modifierCompte(@PathVariable Long idCompte, @RequestBody Compte compte) {

@@ -42,6 +42,7 @@ public class ClientService {
 			newClient.setEmailClient(client.getEmailClient());
 			newClient.setAdresseClient(client.getAdresseClient());
 			newClient.setNumeroTelephoneClient(client.getNumeroTelephoneClient());
+			newClient.setMotDePasseClient(client.getMotDePasseClient());
 			
 			return clientDao.save(newClient);
 		}else {

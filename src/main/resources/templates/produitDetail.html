@@ -1,69 +1,74 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Détails du produit</title>
-  <link rel="stylesheet" href="/produitDetail.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du produit</title>
+    <link rel="stylesheet" href="/produitDetail.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".acheterMaintenant").click(function() {
+                var idProduit = $(this).data("idProduit"); // Récupère l'ID du produit depuis l'attribut data-idproduit du bouton
+                window.location.href = "/Compte/compteVerification?idProduit=" + idProduit; // Redirection vers la page de vérification du compte avec l'ID du produit
+            });
+        });
+    </script>
 </head>
 <body>
 <header class="header">
-  <div class="bande1">
-    <input type="text" placeholder="Rechercher un produit..." class="case">
-    <button class="rechercher" type="submit">Rechercher</button>
-    <ul class="align">
-        <li><img class="panier" src="/img/panier.png"></li>
-	    <li><p id="m1">panier</p></li>
-	    <li><p id="slash">|</p></li>
-	    <li><img class="facture" src="/img/compte1.png"></li>
-	    <li><p id="m2">facture</p></li>      
-    </ul>
-  </div>
-  <div class="marketplace">
-    <h1 id="p1">MARKET PLACE</h1>
-    <p id="p2">Notre site de vente de matériel informatique</p>
-  </div>
+    <div class="bande1">
+        <input type="text" placeholder="Rechercher un produit..." class="case">
+        <button class="rechercher" type="submit">Rechercher</button>
+        <ul class="align">
+            <li><img class="panier" src="/img/panier.png"></li>
+            <li><p id="m1">panier</p></li>
+            <li><p id="slash">|</p></li>
+            <li><img class="facture" src="/img/compte1.png"></li>
+            <li><p id="m2">facture</p></li>
+        </ul>
+    </div>
+    <div class="marketplace">
+        <h1 id="p1">MARKET PLACE</h1>
+        <p id="p2">Notre site de vente de matériel informatique</p>
+    </div>
 </header>
 <main class="main">
-  <section class="section1">
-    <ul>
-      <li id="o1"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
-      <li id="o2"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
-      <li id="o3"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
-      <li id="o4"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
-      <li id="o5"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
-      <li id="o6"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
-    </ul>
-  </section>
-  <section class="section2">
-  
-    <div th:if="${produitDetail != null}">
-        <div class="imageProduit">
-             <img th:src="@{${produitDetail.imageProduit}}" th:alt="${produitDetail.nomProduit}">
+    <section class="section1">
+        <ul>
+            <li id="o1"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
+            <li id="o2"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
+            <li id="o3"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
+            <li id="o4"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
+            <li id="o5"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
+            <li id="o6"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
+        </ul>
+    </section>
+    <section class="section2">
+        <div th:each="produit : ${produitDetail}">
+            <div class="imageProduit">
+                <img th:src="@{${produitDetail.imageProduit}}" th:alt="${produitDetail.nomProduit}">
+            </div>
+            <div class="infoProduit">
+                <h1 th:text="${produitDetail.nomProduit}"></h1>
+                <p th:text="${produitDetail.descriptionProduit}"></p>
+                <p th:text="${produitDetail.prixProduit} + ' Franc CFA'"></p>
+                <button class="acheterMaintenant" th:attr="data-idProduit=${produitDetail.idProduit}">Acheter maintenant</button>
+                <button>ajouter au panier</button>
+            </div>
         </div>
-      <div class="infoProduit">
-       		 <h1 th:text="${produitDetail.nomProduit}"></h1>
-        	 <p th:text="${produitDetail.descriptionProduit}"></p>
-       		 <p th:text="${produitDetail.prixProduit} + ' Franc CFA'"></p>
-       		 <button th:onclick="|location.href='@{/Compte/compteVerification}'|">Acheter maintenant</button>
-       		 <button>ajouter au panier</button>
-      </div>
-    </div>
-    <div th:if="${produitDetail == null}">
-      <p th:text="${errorMessage}">Produit non trouvé.</p>
-    </div>
-  </section>
+    </section>
 </main>
 <footer class="footer">
-  <h1>acheter :</h1>
-  <ul>
-    <li id="o7"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
-    <li id="o8"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
-    <li id="o9"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
-    <li id="o10"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
-    <li id="o11"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
-    <li id="o12"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
-  </ul>
+    <h1>acheter :</h1>
+    <ul>
+        <li id="o7"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
+        <li id="o8"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
+        <li id="o9"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
+        <li id="o10"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
+        <li id="o11"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
+        <li id="o12"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
+    </ul>
 </footer>
 </body>
 </html>

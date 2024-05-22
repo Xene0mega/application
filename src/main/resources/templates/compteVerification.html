@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification Compte</title>
     <link rel="stylesheet" href="/compteVerification.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".btn-creer-compte").click(function() {
+                var idProduit = new URLSearchParams(window.location.search).get('idProduit');
+                window.location.href = "/Compte/creerCompteForm?idProduit=" + idProduit;
+            });
+        });
+    </script>
 </head>
 <body>
 <header class="header">
@@ -14,17 +23,15 @@
     </div>
 </header>
 <main class="main">
-	 <section class="section2">
-	    <div class="connexion-container">
-	        <h1>Avez-vous un compte?</h1>
-	        <div class="options">
-	              <button class="btn-creer-compte" th:onclick="'location.href=&quot;/Compte/creerCompteForm&quot;'">Creer un compte</button>
-	            <button class="btn-connexion" th:onclick="'location.href=&quot;/Compte/connexion&quot;'">Connexion</button>
-	            
-	        </div>
-	    </div>
-	</section>
-
+    <section class="section2">
+        <div class="connexion-container">
+            <h1>Avez-vous un compte?</h1>
+            <div class="options">
+                <button class="btn-creer-compte">Creer un compte</button>
+                <button class="btn-connexion" th:onclick="'location.href=&quot;/Compte/connexion&quot;'">Connexion</button>
+            </div>
+        </div>
+    </section>
 </main>
 </body>
 </html>

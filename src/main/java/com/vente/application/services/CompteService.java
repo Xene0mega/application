@@ -54,6 +54,7 @@ public class CompteService {
     	// Marquer le compte comme activé
         compte.setStatutCompte(true); 
         
+        
         return compteDao.save(compte);
     }
 

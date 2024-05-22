@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passer Commande</title>
+    <link rel="stylesheet" href="/passerCommande.css"> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#commandeForm").submit(function(event) {
+                event.preventDefault();
+               
+                var idProduit = new URLSearchParams(window.location.search).get('idProduit');
+                var idClient = new URLSearchParams(window.location.search).get('idClient');
+                
+                var formData = $(this).serialize();
+                $.post($(this).attr("action"), formData)
+                    .done(function(data) {
+                    	 var idCommande = data; // Récupérer l'ID de la commande retourné dans la réponse
+                        alert("Votre commande a été créé avec succès !");
+                        window.location.href = "/Facture/AfficherFacture??idProduit=" + idProduit+ "&idClient=" + idClient + "&idCommande=" + idCommande; // Redirection vers la page de Facture avec l'ID du Commande
+                    })
+                    .fail(function() {
+                        alert("Erreur lors de la commande.");
+                    });
+            });
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="marketplace">
+            <h1 id="p1">MARKET PLACE</h1>
+            <p id="p2">Passer une commande</p>
+        </div>
+    </header>
+
+    <form id="commandeForm" th:action="@{/Commande/passerCommande}" th:object="${commande}" method="post">
+        <h1>Passer une commande</h1>
+        <p>Nom du produit : <span th:text="${produit != null ? produit.nomProduit : ''}"></span></p>
+        <p>Prix : <span th:text="${produit != null ? produit.prixProduit : ''}"></span></p>
+        <p>Nom du client : <span th:text="${client != null ? client.nomClient : ''}"></span></p>
+        <p>ID du compte : <span th:text="${client != null ? client.idClient : ''}"></span></p>
+        <p>Date de la commande : <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span></p>
+
+        <label for="dateLivraison">Date de livraison :</label>
+        <input type="date" id="dateLivraison" name="dateLivraison" th:field="*{dateLivraison}" required><br>
+
+        <button type="submit">Paiement</button>
+    </form>
+</body>
+</html>

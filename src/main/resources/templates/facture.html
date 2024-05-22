@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture</title>
+</head>
+<body>
+    <header class="header">
+        <div class="marketplace">
+            <h1 id="p1">MARKET PLACE</h1>
+            <p id="p2">Facture de commande</p>
+        </div>
+    </header>
+
+    <div class="facture">
+        <h1>Facture</h1>
+        <p> facture <span th:text="${commande!= null ? facture.idFacture}+':'"></span></p>
+        <p>Nom du produit : <span th:text="${produit.nomProduit}"></span></p>
+        <p>Prix du produit : <span th:text="${produit.prixProduit}"></span></p>
+        <p>Nom du client : <span th:text="${client.nomClient}"></span></p>
+        <p>ID du compte : <span th:text="${client.idClient}"></span></p>
+        <p>Date de la commande : <span th:text="${#dates.format(commande.dateCommande, 'yyyy-MM-dd')}"></span></p>
+        <p>Date de livraison : <span th:text="${#dates.format(commande.dateLivraison, 'yyyy-MM-dd')}"></span></p>
+        <p>montant Paiement : <span th:text="${facture.montantPaiement}"></span></p>
+    </div>
+</body>
+</html>
