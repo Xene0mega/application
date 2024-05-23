@@ -36,11 +36,11 @@ public class Client {
     @Column(name = "adresseClient",length = 50, nullable = false)
     private String adresseClient;
     
-    @Column(name = "motDePasse",length = 20, nullable = false)
+    @Column(name = "motDePasseClient",length = 20, nullable = false, unique=true)
     private String motDePasseClient;
 
 
-    @Column(name = "numeroTelephoneClient",length = 15, nullable = false)
+    @Column(name = "numeroTelephoneClient",length = 15, nullable = false, unique=true)
     private String numeroTelephoneClient;
     
     

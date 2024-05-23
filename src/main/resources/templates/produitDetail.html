@@ -9,7 +9,7 @@
     <script>
         $(document).ready(function() {
             $(".acheterMaintenant").click(function() {
-                var idProduit = $(this).data("idProduit"); // Récupère l'ID du produit depuis l'attribut data-idproduit du bouton
+                var idProduit = $(this).data("idproduit"); // Récupère l'ID du produit depuis l'attribut data-idproduit du bouton
                 window.location.href = "/Compte/compteVerification?idProduit=" + idProduit; // Redirection vers la page de vérification du compte avec l'ID du produit
             });
         });
@@ -53,7 +53,7 @@
                 <h1 th:text="${produitDetail.nomProduit}"></h1>
                 <p th:text="${produitDetail.descriptionProduit}"></p>
                 <p th:text="${produitDetail.prixProduit} + ' Franc CFA'"></p>
-                <button class="acheterMaintenant" th:attr="data-idProduit=${produitDetail.idProduit}">Acheter maintenant</button>
+                <button class="acheterMaintenant" th:attr="data-idproduit=${produitDetail.idProduit}">Acheter maintenant</button>
                 <button>ajouter au panier</button>
             </div>
         </div>

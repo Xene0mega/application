@@ -38,7 +38,7 @@ public class FactureService {
 	        if (optionalFacture.isPresent()) {
 	            Facture factureExistant = optionalFacture.get();
 	            facture.getCommande();
-	            facture.getMontantPaiement();
+	            facture.getMontantPaiementFacture();
 	       
 	            return factureDao.save(factureExistant);
 	        } else {
@@ -50,7 +50,7 @@ public class FactureService {
 		}
 		public void validerFacture(Facture facture) {
 	        
-	        if (facture.getMontantPaiement() <= 0) {
+	        if (facture.getMontantPaiementFacture() <= 0) {
 	            throw new IllegalArgumentException("Le montant de la facture doit être positif.");
 	        }
 	        if (facture.getClient() == null) {

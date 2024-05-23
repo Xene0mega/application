@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/facture.css">
     <title>Facture</title>
 </head>
 <body>
@@ -15,14 +16,15 @@
 
     <div class="facture">
         <h1>Facture</h1>
-        <p> facture <span th:text="${commande!= null ? facture.idFacture}+':'"></span></p>
-        <p>Nom du produit : <span th:text="${produit.nomProduit}"></span></p>
-        <p>Prix du produit : <span th:text="${produit.prixProduit}"></span></p>
-        <p>Nom du client : <span th:text="${client.nomClient}"></span></p>
-        <p>ID du compte : <span th:text="${client.idClient}"></span></p>
-        <p>Date de la commande : <span th:text="${#dates.format(commande.dateCommande, 'yyyy-MM-dd')}"></span></p>
-        <p>Date de livraison : <span th:text="${#dates.format(commande.dateLivraison, 'yyyy-MM-dd')}"></span></p>
-        <p>montant Paiement : <span th:text="${facture.montantPaiement}"></span></p>
+        <p>Facture ID : <span th:text="${commande != null ? commande.idCommande : (facture != null ? facture.idFacture : 'ID non disponible')}"></span></p>
+        <p>Nom du produit : <span th:text="${produit != null ? produit.nomProduit : 'Produit non trouvé'}"></span></p>
+        <p>Prix du produit : <span th:text="${produit != null ? produit.prixProduit + ' FCFA' : 'Prix non disponible'}"></span></p>
+        <p>Nom du client : <span th:text="${client != null ? client.nomClient : 'Client non trouvé'}"></span></p>
+        <p>ID du compte : <span th:text="${client != null ? client.idClient : 'ID non disponible'}"></span></p>
+        <p>Date de la commande : <span th:text="${commande != null ? #dates.format(commande.dateCommande, 'yyyy-MM-dd') : 'Date non disponible'}"></span></p>
+        <p>Date de livraison : <span th:if="${commande != null && commande.dateLivraisonCommande != null}" th:text="${#dates.format(commande.dateLivraisonCommande, 'yyyy-MM-dd')}"></span><span th:if="${commande == null || commande.dateLivraisonCommande == null}">Date non disponible</span></p>
+        <p>Montant Paiement : <span th:if="${facture != null && facture.montantPaiementFacture != null}" th:text="${facture.montantPaiementFacture + ' FCFA'}"></span><span th:if="${facture == null || facture.montantPaiementFacture == null}">Montant non disponible</span></p>
+        
     </div>
 </body>
 </html>

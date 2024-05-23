@@ -14,7 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "Paiement")
+@Table(name = "facture")
 @Entity
 @Getter
 @Setter
@@ -23,15 +23,16 @@ import lombok.Setter;
 public class Facture {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long idPaiement;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idFacture")
+    private Long idFacture;
 
     @OneToOne
     @JoinColumn(name = "COMMANDE_ID", nullable = false)
     private Commande commande;
 
     @OneToOne
-    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "idClient")
+    @JoinColumn(name = "CLIENT_ID", referencedColumnName = "idClient", nullable=false)
     private Client client;
 
     @OneToOne
@@ -39,6 +40,6 @@ public class Facture {
     private Produit produit;
 
     @Column(name = "montantPaiement", nullable = false)
-    private double montantPaiement;
+    private double montantPaiementFacture;
 
 }

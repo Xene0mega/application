@@ -1,18 +1,17 @@
 package com.vente.application.services;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List; 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vente.application.entities.Client;
 import com.vente.application.entities.Commande;
-import com.vente.application.entities.Produit;
-import com.vente.application.repository.ClientDao;
+
+
 import com.vente.application.repository.CommandeDao;
-import com.vente.application.repository.ProduitDao;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,14 +19,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommandeService {
 
+	@Autowired
 	private CommandeDao commandeDao;
-	
-	
-	private ClientDao clientDao;
-	
-	private ProduitDao produitDao;
-	
-	
 	
    public List<Commande>getAllCommandes(){
 		
@@ -47,8 +40,8 @@ public class CommandeService {
 			Commande newCommande = commandeExistant.get();
 			
 			newCommande.setDateCommande(commande.getDateCommande());
-			newCommande.setDateLivraison(commande.getDateLivraison());
-			newCommande.setPrixTotal(commande.getPrixTotal());
+			newCommande.setDateLivraisonCommande(commande.getDateLivraisonCommande());
+			newCommande.setPrixTotalCommande(commande.getPrixTotalCommande());
 			
 			return commandeDao.save(newCommande);
 		}else {
@@ -57,31 +50,43 @@ public class CommandeService {
 	}
 		
 
-	public Commande creerCommande(Commande commande, Long idClient, Long idProduit) {
-        // Vérification de l'existence du client et du produit
-        Client client = clientDao.findById(idClient)
-                                 .orElseThrow(() -> new IllegalArgumentException("Client non trouvé avec l'ID : " + idClient));
-        
-        Produit produit = produitDao.findById(idProduit)
-                                    .orElseThrow(() -> new IllegalArgumentException("Produit non trouvé avec l'ID : " + idProduit));
-        
-       /* // Vérifiez si le client et le produit existent dans la base de données
-        if (!clientDao.existsById(client.getIdClient())) {
-            throw new IllegalArgumentException("Client n'existe pas");
-        }
-        if (!produitDao.existsById(produit.getIdProduit())) {
-            throw new IllegalArgumentException("Produit n'existe pas");
-        }*/
-
-        // Attribution du client et du produit à la commande
-        commande.setClient(client);
-        commande.setProduit(produit);
-        commande.setDateCommande(Date.valueOf(LocalDate.now()));
-
-        // Enregistrement de la commande dans la base de données
-        return commandeDao.save(commande);
-	}
-
+	  public Commande creerCommande(Commande commande) {
+		  
+	
+		    
+	        // Définir la date de commande et de livraison
+		  commande.setDateCommande(new java.sql.Date(System.currentTimeMillis()));
+	        
+	        
+		   Date dateLivraisonCommande = commande.getDateLivraisonCommande(); // Récupérer la date de livraison saisie par le client
+		    commande.setDateLivraisonCommande(dateLivraisonCommande);
+	        
+	     // Définir les frais de livraison à 2000
+	        commande.setFraisLivraisonCommande(2000.0);
+	        
+	        
+	        Double prixTotalCommande = calculerPrixTotalCommande(commande);
+	        commande.setPrixTotalCommande(prixTotalCommande);
+	        
+	        // Enregistrer la commande dans la base de données
+	        return commandeDao.save(commande);
+	    }
+	  
+	  
+	   private double calculerPrixTotalCommande(Commande commande) {
+		   double prixTotalCommande = 0.0;
+	        // Calculer le prix du produit
+	       
+	        if (commande != null && commande.getProduit() != null) {
+	        	 double prixProduit = commande.getProduit().getPrixProduit();
+	        // Ajouter les frais de livraison au prix du produit pour obtenir le prix total
+	         prixTotalCommande = prixProduit + commande.getFraisLivraisonCommande();
+	        
+	        }
+	        return prixTotalCommande;
+	        
+	   }
+	        
 	
 	
 	

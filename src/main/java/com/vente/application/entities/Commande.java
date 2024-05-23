@@ -35,18 +35,22 @@ public class Commande {
 	private Date dateCommande;
 	
 	@Column(name = "dateLivraisonCommande", nullable = false, length = 20)
-	private Date dateLivraison;
+	private Date dateLivraisonCommande;
+	
+	@Column(name = "fraisLivraisonCommande", nullable = false, length = 20)
+	private Double fraisLivraisonCommande;
+	
 	
 	@Column(name = "prixTotalCommande", nullable = false, length = 20)
-	private Double prixTotal;
-	
-	@ManyToOne
-	@JoinColumn(name = "CLIENT_ID", referencedColumnName = "idClient")
-	private Client client;
+	private Double prixTotalCommande;
 	
 	@OneToOne
 	@JoinColumn(name ="PRODUIT_ID", referencedColumnName = "idProduit")
 	private Produit produit;
+	
+	@ManyToOne
+	@JoinColumn(name = "CLIENT_ID", referencedColumnName = "idClient")
+	private Client client;
 	
 	 @OneToOne(mappedBy = "commande", cascade = CascadeType.ALL)
 	 private Paiement paiement;

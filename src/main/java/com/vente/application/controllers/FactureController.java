@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vente.application.entities.Client;
 import com.vente.application.entities.Commande;
 import com.vente.application.entities.Facture;
+import com.vente.application.entities.Produit;
 import com.vente.application.services.CommandeService;
 import com.vente.application.services.FactureService;
 
@@ -33,29 +36,36 @@ public class FactureController {
 	    private FactureService factureService;
 	 
 
-	@GetMapping("/AfficherFacture")
-	public ModelAndView afficherFacture(@RequestParam("idCommande") Long idCommande) {
-		
-		ModelAndView modelAndView = new ModelAndView("facture");
-		
-	    Optional<Commande> commande = commandeService.getCommandeById(idCommande);   
-   
-        
-        if (commande.isPresent()) {
-        	
-            Facture facture =new Facture();
-          
-            facture.setCommande(commande.get());
-            
-            modelAndView.addObject("facture", facture); 
-            modelAndView.addObject("commande", commande.get());
-   
-            
-        } else {
-            modelAndView.addObject("errorMessage", "commande non trouvé");
-        }
-        return modelAndView;
-    }
+	 @GetMapping("/AfficherFacture")
+	 public ModelAndView afficherFacture(@RequestParam("idCommande") Long idCommande) {
+	     ModelAndView modelAndView = new ModelAndView("facture");
+	     
+	     // Récupérer la commande par son ID
+	     Optional<Commande> commandeOptional = commandeService.getCommandeById(idCommande);
+	     
+	     if (commandeOptional.isPresent()) {
+	         Commande commande = commandeOptional.get();
+	         
+	         // Récupérer le produit et le client associés à la commande
+	         Produit produit = commande.getProduit();
+	         Client client = commande.getClient();
+	         
+	         // Créer une facture en utilisant les détails de la commande
+	         Facture facture = new Facture();
+	         facture.setCommande(commande);
+	         facture.setMontantPaiementFacture(commande.getPrixTotalCommande());
+	         
+	         // Ajouter les objets au modèle
+	         modelAndView.addObject("commande", commande);
+	         modelAndView.addObject("produit", produit);
+	         modelAndView.addObject("client", client);
+	         modelAndView.addObject("facture", facture);
+	     } else {
+	         modelAndView.addObject("errorMessage", "Commande non trouvée");
+	     }
+	     
+	     return modelAndView;
+	 }
 	  @PostMapping("/validerFacture")
 	    public ResponseEntity<String> validerFacture(Facture facture, Long idCommande) {
 	    	 try {
@@ -64,7 +74,7 @@ public class FactureController {
 	             return ResponseEntity.ok("facture effectué avec succès");
 	             
 	         } catch (Exception e) {
-	             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de lors de l'envoi de la commande");
+	             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de lors de l'envoi de la facture");
 	         }
 	     }
 	    

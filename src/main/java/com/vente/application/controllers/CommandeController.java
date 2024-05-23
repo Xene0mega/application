@@ -1,21 +1,21 @@
 package com.vente.application.controllers;
 
-import com.vente.application.entities.Client;
+import com.vente.application.entities.Client; 
 import com.vente.application.entities.Commande;
 import com.vente.application.entities.Produit;
 import com.vente.application.services.ClientService;
 import com.vente.application.services.CommandeService;
 import com.vente.application.services.ProduitService;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,43 +37,67 @@ public class CommandeController {
     
     @Autowired
     private ClientService clientService;
+ 
+
 
     @GetMapping("/commandeForm")
-    public ModelAndView afficherPageCommande(@RequestParam("idProduit") Long idProduit, @RequestParam("idClient") Long idClient) {
-        ModelAndView modelAndView = new ModelAndView("passerCommande");
+    public ModelAndView afficherFormulaireCommande(Long idClient, Long idProduit) {
+    	  ModelAndView modelAndView = new ModelAndView("passerCommande");
+          
+          Optional<Produit> produit = produitService.getProduitById(idProduit);
+          Optional<Client> client = clientService.getClientById(idClient);
+          if (produit.isPresent()&& client.isPresent()) {
+              Commande commande = new Commande();
+              
+              commande.setProduit(produit.get());
+              commande.setClient(new Client()); // Assurez-vous que le client est initialisé correctement
+              modelAndView.addObject("commande", commande); // Utilisez "commande" au lieu de "passerCommande"
+              modelAndView.addObject("produit", produit.get());
+              modelAndView.addObject("client", client.get()); // Ajoutez le client au modèle
+          } else {
+              modelAndView.addObject("errorMessage", "Produit non trouvé");
+          }
+          return modelAndView;
+      }
+
+
+    @PostMapping("/creerCommande")
+    public ModelAndView creerCommande(@ModelAttribute("commande") Commande commande, 
+                                      @RequestParam("idProduit") Long idProduit,
+                                      @RequestParam("idClient") Long idClient,
+                                      @RequestParam("dateLivraisonCommande") Date dateLivraisonCommande) {
+        // Récupérer le produit et le client à partir des ID
+        Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
+        Optional<Client> clientOptional = clientService.getClientById(idClient);
         
-        Optional<Produit> produit = produitService.getProduitById(idProduit);
-        Optional<Client> client = clientService.getClientById(idClient);
-        if (produit.isPresent()&& client.isPresent()) {
-            Commande commande = new Commande();
+        if (produitOptional.isPresent() && clientOptional.isPresent()) {
+            Produit produit = produitOptional.get();
+            Client client = clientOptional.get();
             
-            commande.setProduit(produit.get());
-            commande.setClient(new Client()); // Assurez-vous que le client est initialisé correctement
-            modelAndView.addObject("commande", commande); // Utilisez "commande" au lieu de "passerCommande"
-            modelAndView.addObject("produit", produit.get());
-            modelAndView.addObject("client", client.get()); // Ajoutez le client au modèle
+            // Lier le produit et le client à la commande
+            commande.setProduit(produit);
+            commande.setClient(client);
+            
+         // Définir la date de livraison saisie par le client
+            commande.setDateLivraisonCommande(dateLivraisonCommande);
+            // Enregistrer la commande
+            Commande nouvelleCommande = commandeService.creerCommande(commande);
+            
+            // Récupérer l'ID de la commande enregistrée
+            Long idCommande = nouvelleCommande.getIdCommande();
+            
+            // Rediriger vers la page de facture avec l'ID de la commande
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.addObject("idCommande", idCommande);
+            modelAndView.setViewName("redirect:/Facture/AfficherFacture?idCommande=" + idCommande);
+            
+            return modelAndView;
         } else {
-            modelAndView.addObject("errorMessage", "Produit non trouvé");
+            // Gérer le cas où le produit ou le client n'est pas trouvé
+            // Par exemple, rediriger vers une page d'erreur
+            return new ModelAndView("redirect:/erreur");
         }
-        return modelAndView;
     }
-
-
-    @PostMapping("/passerCommande")
-    public ResponseEntity<String> creerCommande(Commande commande, Long idCommande, Long idClient, Long idProduit) {
-    	 try {
-    	        commandeService.creerCommande(commande, idClient, idProduit);
-    	        
-    	         idCommande = commande.getIdCommande();
-    	        
-
-    		  return ResponseEntity.ok(idCommande.toString());
-             
-         } catch (Exception e) {
-             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de lors de l'envoi de la commande");
-         }
-     }
-    
     @GetMapping("/AllCommandes")
     public List<Commande>getAllCommandes(){
 		
