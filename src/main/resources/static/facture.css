@@ -1,12 +1,24 @@
 /* Styles pour la facture */
 .header {
-    background-color: #f8f9fa;
-    padding: 10px;
+	padding: 20px;
+	margin-top: -10px;
+	padding-left: 50px;
+    background-color: #333333;
     text-align: center;
+    width: 100%;
+    position:relative;
+    right:62px;
 }
-
+#p1{
+	color: white;
+}
+#p2{
+	color: rgba(255,255,255,0.5);
+	font-size: 21px;
+}
 .marketplace {
-    margin-top: 20px;
+    margin-top: 30px;
+   margin-right:30px;
 }
 
 .facture {
@@ -33,4 +45,15 @@
 .facture span {
     font-weight: bold;
     color: #007bff;
+}
+.retourAcceuil{
+	 background-color: #4CAF50; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement intérieur du bouton */
+    border: none; /* Supprimer la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; 
+}
+.retourAcceuil:hover {
+    background-color: #45a049; /* Couleur de fond au survol */
 }

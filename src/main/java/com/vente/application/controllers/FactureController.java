@@ -1,14 +1,11 @@
 package com.vente.application.controllers;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,8 +19,10 @@ import com.vente.application.entities.Client;
 import com.vente.application.entities.Commande;
 import com.vente.application.entities.Facture;
 import com.vente.application.entities.Produit;
+import com.vente.application.services.ClientService;
 import com.vente.application.services.CommandeService;
 import com.vente.application.services.FactureService;
+import com.vente.application.services.ProduitService;
 
 @RestController
 @RequestMapping("/Facture")
@@ -34,6 +33,13 @@ public class FactureController {
 	 
 	 @Autowired
 	    private FactureService factureService;
+	 
+	 @Autowired
+	    private ClientService clientService;
+	 
+	 @Autowired
+	    private ProduitService produitService;
+	 
 	 
 
 	 @GetMapping("/AfficherFacture")
@@ -66,23 +72,59 @@ public class FactureController {
 	     
 	     return modelAndView;
 	 }
-	  @PostMapping("/validerFacture")
-	    public ResponseEntity<String> validerFacture(Facture facture, Long idCommande) {
-	    	 try {
-	    		    factureService.validerFacture(facture);
+	 @PostMapping("/creerFacture")
+	 public ModelAndView enregistrerFacture(@RequestParam("idCommande") Long idCommande,
+			                                @RequestParam("idClient") Long idClient, 
+											@RequestParam("idProduit") Long idProduit,
+											@RequestParam("montantPaiementFacture") double montantPaiementFacture) 
+	 {
+	     // Récupérer la commande par son ID
+	     Optional<Commande> commandeOptional = commandeService.getCommandeById(idCommande);
+	     Optional<Client> clientOptional = clientService.getClientById(idClient);
+	     Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
 
-	             return ResponseEntity.ok("facture effectué avec succès");
-	             
-	         } catch (Exception e) {
-	             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de lors de l'envoi de la facture");
-	         }
+	     if (commandeOptional!=null && clientOptional!=null && produitOptional!=null) {
+	    	 
+	         Commande commande = commandeOptional.get();
+             Client client = clientOptional.get();
+             Produit produit = produitOptional.get();
+	         // Créer une facture en utilisant les détails de la commande
+	         Facture facture = new Facture();
+	         facture.setMontantPaiementFacture(montantPaiementFacture);
+	         facture.setCommande(commande);
+	         facture.setClient(client);
+	         facture.setProduit(produit);
+	         
+
+	         // Enregistrer la facture
+	         factureService.creerFacture(facture);
+
+	         ModelAndView modelAndView = new ModelAndView("redirect:/Categories/voirTout");
+	         return modelAndView;
+	     } else {
+	         ModelAndView modelAndView = new ModelAndView("redirect:/erreur");
+	         return modelAndView;
 	     }
-	    
+	 }
+
 	    @GetMapping("/AllFactures")
-	    public List<Facture>getAllFactures(){
-			
-			return factureService.getAllFactures();
-		}
+	    public ModelAndView getAllFactures(){
+	    	
+	    	 List<Facture> listeFacture = factureService.getAllFactures();
+	    	 ModelAndView modelAndView;
+	    	 
+	    	  if (listeFacture.isEmpty()) {
+	    		 
+	    	        modelAndView = new ModelAndView("aucuneFacture"); 
+	    	        modelAndView.addObject("message", "Aucune facture disponible.");
+	    	    } else {
+	    	        // Si la liste des factures n'est pas vide, affichez la liste des factures
+	    	        modelAndView = new ModelAndView("listeFacture");
+	    	        modelAndView.addObject("listeFacture", listeFacture);
+	    	    }
+	    	  return modelAndView;
+	    	  
+	    }
 
 	    @PutMapping("/modifierFacture/{idFacture}")
 	    public Facture modifierFacture(@PathVariable Long idFacture, @RequestBody Facture facture) {

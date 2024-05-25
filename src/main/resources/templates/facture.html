@@ -14,7 +14,13 @@
         </div>
     </header>
 
-    <div class="facture">
+    <form  class="facture" th:action="@{/Facture/creerFacture}" th:object="${facture}" method="post">
+      <input type="hidden" name="idCommande" th:value="${commande.idCommande}">
+      <input type="hidden" name="idClient" th:value="${client.idClient}">
+       <input type="hidden" name="idProduit" th:value="${produit.idProduit}">
+       <input type="hidden" name="montantPaiementFacture" th:value="${facture.montantPaiementFacture}">
+       
+      
         <h1>Facture</h1>
         <p>Facture ID : <span th:text="${commande != null ? commande.idCommande : (facture != null ? facture.idFacture : 'ID non disponible')}"></span></p>
         <p>Nom du produit : <span th:text="${produit != null ? produit.nomProduit : 'Produit non trouvé'}"></span></p>
@@ -24,7 +30,9 @@
         <p>Date de la commande : <span th:text="${commande != null ? #dates.format(commande.dateCommande, 'yyyy-MM-dd') : 'Date non disponible'}"></span></p>
         <p>Date de livraison : <span th:if="${commande != null && commande.dateLivraisonCommande != null}" th:text="${#dates.format(commande.dateLivraisonCommande, 'yyyy-MM-dd')}"></span><span th:if="${commande == null || commande.dateLivraisonCommande == null}">Date non disponible</span></p>
         <p>Montant Paiement : <span th:if="${facture != null && facture.montantPaiementFacture != null}" th:text="${facture.montantPaiementFacture + ' FCFA'}"></span><span th:if="${facture == null || facture.montantPaiementFacture == null}">Montant non disponible</span></p>
-        
-    </div>
+       
+         
+        <button type="submit" class="retourAcceuil">retour a acceuil</button>
+</form>
 </body>
 </html>

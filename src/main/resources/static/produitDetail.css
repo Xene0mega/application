@@ -66,9 +66,13 @@ body {
 	margin-top: 13px;
 }
 #m2{
-	text-indent: 40px;
+	
 	font-size:30px;
-	margin-top: 20px;
+	text-decoration:none;
+	color: black;
+	position: absolute;
+	bottom:45px;
+	right: 135px;
 }
 
 .facture, .panier {

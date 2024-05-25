@@ -1,7 +1,7 @@
 package com.vente.application.entities;
 
 
-import jakarta.persistence.Column;
+import jakarta.persistence.Column; 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,7 +28,7 @@ public class Facture {
     private Long idFacture;
 
     @OneToOne
-    @JoinColumn(name = "COMMANDE_ID", nullable = false)
+    @JoinColumn(name = "COMMANDE_ID", referencedColumnName="idCommande", nullable = false)
     private Commande commande;
 
     @OneToOne
@@ -36,10 +36,10 @@ public class Facture {
     private Client client;
 
     @OneToOne
-    @JoinColumn(name = "PRODUIT_ID", nullable = false)
+    @JoinColumn(name = "PRODUIT_ID", referencedColumnName="idProduit",  nullable = false)
     private Produit produit;
 
-    @Column(name = "montantPaiement", nullable = false)
+    @Column(name = "montantPaiementFacture", nullable = false)
     private double montantPaiementFacture;
 
 }
