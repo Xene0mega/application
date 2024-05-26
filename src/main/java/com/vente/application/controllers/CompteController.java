@@ -1,6 +1,6 @@
 package com.vente.application.controllers;
 
-import java.util.List; 
+import java.util.List;  
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vente.application.entities.Client;
 import com.vente.application.entities.Compte;
+import com.vente.application.entities.Produit;
+import com.vente.application.services.ClientService;
 import com.vente.application.services.CompteService;
+import com.vente.application.services.ProduitService;
 
 import ch.qos.logback.core.model.Model;
 
@@ -29,6 +33,14 @@ public class CompteController {
     
 	@Autowired
     private CompteService compteService;
+	
+	@Autowired
+	private ClientService clientService;
+
+	@Autowired
+	private ProduitService produitService;
+	
+	
 
 	
 	
@@ -69,6 +81,85 @@ public class CompteController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du compte");
         }
     }
+    
+    
+        @GetMapping("/compteConnexion")
+        public ModelAndView showCompteConexion(@RequestParam(value = "idProduit", required = false) Long idProduit) {
+            ModelAndView modelAndView = new ModelAndView("compteConnexion");
+            modelAndView.addObject("client", new Client());
+            modelAndView.addObject("idProduit", idProduit);
+            return modelAndView;
+        }
+    @PostMapping("/creerConnexion")
+    public ModelAndView connexion(@RequestParam("emailClient") String emailClient,
+                                  @RequestParam("motDePasseClient") String motDePasseClient,
+                                  @RequestParam("idProduit") Long idProduit) {
+        
+        Optional<Client> clientOptional = clientService.getClientByEmailClientAndMotDePasseClient(emailClient, motDePasseClient);
+        Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
+        
+        if (clientOptional.isPresent() && produitOptional.isPresent()) {
+            Client client = clientOptional.get();
+            Produit produit = produitOptional.get();
+            
+            return new ModelAndView("redirect:/Commande/commandeForm?idProduit=" + produit.getIdProduit() + "&idClient=" + client.getIdClient());
+        } else {
+            ModelAndView modelAndView = new ModelAndView("compteConnexion");
+            modelAndView.addObject("message", "Connexion échouée");
+            return modelAndView;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*public ModelAndView connexion(@RequestParam("nomClient") String nomClient,
+                                  @RequestParam("motDePasseClient") String motDePasseClient,
+                                  @RequestParam("idProduit") Long idProduit
+                                 ) {
+    	
+        Optional<Client> clientOptional = clientService.getClientByNomAndMotDePasse(nomClient, motDePasseClient);
+        Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
+        ModelAndView modelAndView = new ModelAndView();
+        
+        if(produitOptional.isPresent() && clientOptional.isPresent()) {
+        	Client client = clientOptional.get();
+        	Produit produit = produitOptional.get();
+        	
+        	
+            modelAndView.setViewName("redirect:/Commande/commandeForm?idProduit=" + produit.getIdProduit() + "&idClient=" + client.getIdClient());
+     
+        }else {
+                modelAndView.setViewName("compteConnexion");
+                modelAndView.addObject("message", "Connexion échouée");
+        	
+        }
+        
+        return modelAndView;
+    }*/
 
     @PutMapping("/modifierCompte/{idCompte}")
     public Compte modifierCompte(@PathVariable Long idCompte, @RequestBody Compte compte) {

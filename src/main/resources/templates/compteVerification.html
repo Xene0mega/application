@@ -12,6 +12,10 @@
                 var idProduit = new URLSearchParams(window.location.search).get('idProduit');
                 window.location.href = "/Compte/creerCompteForm?idProduit=" + idProduit;
             });
+           $(".btn-connexion").click(function() {
+                var idProduit = new URLSearchParams(window.location.search).get('idProduit');
+                window.location.href = "/Compte/compteConnexion?idProduit=" + idProduit;
+            });
         });
     </script>
 </head>
@@ -28,7 +32,8 @@
             <h1>Avez-vous un compte?</h1>
             <div class="options">
                 <button class="btn-creer-compte">Creer un compte</button>
-                <button class="btn-connexion" th:onclick="'location.href=&quot;/Compte/connexion&quot;'">Connexion</button>
+               <button class="btn-connexion" th:onclick="'location.href=&quot;/Compte/compteConnexion&quot;'">Connexion</button>
+
             </div>
         </div>
     </section>

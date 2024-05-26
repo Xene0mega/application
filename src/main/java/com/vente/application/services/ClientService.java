@@ -57,4 +57,11 @@ public class ClientService {
 	public void deleteAllClient() {
 		clientDao.deleteAll();
 	}
+
+	
+	public Optional<Client> getClientByEmailClientAndMotDePasseClient(String emailClient, String motDePasseClient) {
+		
+	    return clientDao.findByEmailClientAndMotDePasseClient(emailClient, motDePasseClient);
+	}
+
 }
