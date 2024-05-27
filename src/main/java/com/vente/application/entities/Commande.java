@@ -1,8 +1,7 @@
 package com.vente.application.entities;
 
-import java.sql.Date;
+import java.sql.Date; 
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,6 +51,8 @@ public class Commande {
 	@JoinColumn(name = "CLIENT_ID", referencedColumnName = "idClient")
 	private Client client;
 	
-	 @OneToOne(mappedBy = "commande", cascade = CascadeType.ALL)
-	 private Paiement paiement;
+	 @ManyToOne
+	 @JoinColumn(name = "CATEGORIE_ID", referencedColumnName = "idCategorie")
+	 private Categorie categorie;
+	
 }

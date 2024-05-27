@@ -33,11 +33,11 @@
      <section class="section1">
         <ul>
             <li id="o1"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
-            <li id="o2"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
-            <li id="o3"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
-            <li id="o4"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
-            <li id="o5"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
-            <li id="o6"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
+            <li id="o2"><a th:href="@{/Categories/categorie/1}">Ordinateur</a></li>
+            <li id="o3"><a th:href="@{/Categories/categorie/2}">Tablette</a></li>
+            <li id="o4"><a th:href="@{/Categories/categorie/3}">Téléphone portable</a></li>
+            <li id="o5"><a th:href="@{/Categories/categorie/4}">Pièce informatique</a></li>
+            <li id="o6"><a th:href="@{/Categories/categorie/5}">Équipement réseau</a></li>
         </ul>
     </section>
    <section class="section2">
@@ -47,12 +47,12 @@
        <div class="categories-container">
             <div class="categorie" th:each="categorie : ${voirTout}">
             
-                 <a th:href="@{/Categories/AfficherProduitCategorie/{idCategorie}(idCategorie=${categorie.idCategorie})}">
+                 <a th:href="@{/Categories/categorie/{idCategorie}(idCategorie=${categorie.idCategorie})}">
                       <span class="categorie-circle">
                           <img th:alt="${categorie.nomCategorie}" class="image" th:src="@{${categorie.imageCategorie}}">
                      </span>
                  </a>
-                 <a th:href="@{/Categories/AfficherProduitCategorie/{idCategorie}(idCategorie=${categorie.idCategorie})}">     
+                 <a th:href="@{/Categories/categorie/{idCategorie}(idCategorie=${categorie.idCategorie})}">     
                   <span class="categorie-name" th:text="${categorie.nomCategorie}"></span>
                   </a>
            </div>
@@ -64,11 +64,11 @@
     <h1>acheter :</h1>
     <ul>
             <li id="o7"><a th:href="@{/Categories/voirTout}">Voir tout</a></li>
-            <li id="o8"><a th:href="@{/Categories/AfficherProduitCategorie/1}">Ordinateur</a></li>
-            <li id="o9"><a th:href="@{/Categories/AfficherProduitCategorie/2}">Tablette</a></li>
-            <li id="o10"><a th:href="@{/Categories/AfficherProduitCategorie/3}">Téléphone portable</a></li>
-            <li id="o11"><a th:href="@{/Categories/AfficherProduitCategorie/4}">Pièce informatique</a></li>
-            <li id="o12"><a th:href="@{/Categories/AfficherProduitCategorie/5}">Équipement réseau</a></li>
+            <li id="o8"><a th:href="@{/Categories/categorie/1}">Ordinateur</a></li>
+            <li id="o9"><a th:href="@{/Categories/categorie/2}">Tablette</a></li>
+            <li id="o10"><a th:href="@{/Categories/categorie/3}">Téléphone portable</a></li>
+            <li id="o11"><a th:href="@{/Categories/categorie/4}">Pièce informatique</a></li>
+            <li id="o12"><a th:href="@{/Categories/categorie/5}">Équipement réseau</a></li>
         </ul>
 </footer>
 </body>

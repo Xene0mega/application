@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vente.application.entities.Categorie;
 import com.vente.application.entities.Client;
 import com.vente.application.entities.Commande;
 import com.vente.application.entities.Facture;
 import com.vente.application.entities.Produit;
+import com.vente.application.services.CategorieService;
 import com.vente.application.services.ClientService;
 import com.vente.application.services.CommandeService;
 import com.vente.application.services.FactureService;
@@ -40,10 +42,13 @@ public class FactureController {
 	 @Autowired
 	    private ProduitService produitService;
 	 
+	 @Autowired
+	 private CategorieService categorieService;
+	 
 	 
 
 	 @GetMapping("/AfficherFacture")
-	 public ModelAndView afficherFacture(@RequestParam("idCommande") Long idCommande) {
+	 public ModelAndView afficherFacture(@RequestParam("idCommande") Long idCommande, @RequestParam("idCategorie") Long idCategorie) {
 	     ModelAndView modelAndView = new ModelAndView("facture");
 	     
 	     // Récupérer la commande par son ID
@@ -55,6 +60,7 @@ public class FactureController {
 	         // Récupérer le produit et le client associés à la commande
 	         Produit produit = commande.getProduit();
 	         Client client = commande.getClient();
+	         Categorie categorie = commande.getCategorie();
 	         
 	         // Créer une facture en utilisant les détails de la commande
 	         Facture facture = new Facture();
@@ -66,6 +72,8 @@ public class FactureController {
 	         modelAndView.addObject("produit", produit);
 	         modelAndView.addObject("client", client);
 	         modelAndView.addObject("facture", facture);
+	         modelAndView.addObject("categorie", categorie); // Ajouter l'ID de la catégorie au modèle
+	         
 	     } else {
 	         modelAndView.addObject("errorMessage", "Commande non trouvée");
 	     }
@@ -76,25 +84,30 @@ public class FactureController {
 	 public ModelAndView enregistrerFacture(@RequestParam("idCommande") Long idCommande,
 			                                @RequestParam("idClient") Long idClient, 
 											@RequestParam("idProduit") Long idProduit,
+											@RequestParam("idCategorie") Long idCategorie,
 											@RequestParam("montantPaiementFacture") double montantPaiementFacture) 
 	 {
 	     // Récupérer la commande par son ID
 	     Optional<Commande> commandeOptional = commandeService.getCommandeById(idCommande);
 	     Optional<Client> clientOptional = clientService.getClientById(idClient);
 	     Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
+	     Optional<Categorie> categorieOptional = categorieService.getCategorieById(idCategorie);
+
 
 	     if (commandeOptional!=null && clientOptional!=null && produitOptional!=null) {
 	    	 
 	         Commande commande = commandeOptional.get();
              Client client = clientOptional.get();
              Produit produit = produitOptional.get();
+             Categorie categorie = categorieOptional.get();
 	         // Créer une facture en utilisant les détails de la commande
 	         Facture facture = new Facture();
 	         facture.setMontantPaiementFacture(montantPaiementFacture);
 	         facture.setCommande(commande);
 	         facture.setClient(client);
 	         facture.setProduit(produit);
-	         
+	         facture.setCategorie(categorie); // Définir l'ID de la catégorie dans la facture
+
 
 	         // Enregistrer la facture
 	         factureService.creerFacture(facture);

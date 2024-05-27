@@ -35,7 +35,7 @@ public class CategorieController {
         categorieService.deleteProduitCategorie(idCategorie, idProduit);
     }
     
-    @GetMapping("/AfficherProduitCategorie/{idCategorie}")
+    @GetMapping("/categorie/{idCategorie}")
     public ModelAndView afficherToutProduitCategorie(@PathVariable Long idCategorie, Model model) {
     	ModelAndView modelAndView = new ModelAndView("categorie");
     	modelAndView.addObject("categorie", categorieService.findAllProduitCategorie(idCategorie) );

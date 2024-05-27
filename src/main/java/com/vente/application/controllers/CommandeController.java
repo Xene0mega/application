@@ -1,8 +1,10 @@
 package com.vente.application.controllers;
 
+import com.vente.application.entities.Categorie;
 import com.vente.application.entities.Client; 
 import com.vente.application.entities.Commande;
 import com.vente.application.entities.Produit;
+import com.vente.application.services.CategorieService;
 import com.vente.application.services.ClientService;
 import com.vente.application.services.CommandeService;
 import com.vente.application.services.ProduitService;
@@ -37,67 +39,91 @@ public class CommandeController {
     
     @Autowired
     private ClientService clientService;
+    
+    @Autowired
+    private CategorieService categorieService;
  
 
 
     @GetMapping("/commandeForm")
-    public ModelAndView afficherFormulaireCommande(Long idClient, Long idProduit) {
-    	  ModelAndView modelAndView = new ModelAndView("passerCommande");
-          
-          Optional<Produit> produit = produitService.getProduitById(idProduit);
-          Optional<Client> client = clientService.getClientById(idClient);
-          if (produit.isPresent()&& client.isPresent()) {
-              Commande commande = new Commande();
-              
-              commande.setProduit(produit.get());
-              commande.setClient(new Client()); // Assurez-vous que le client est initialisé correctement
-              modelAndView.addObject("commande", commande); // Utilisez "commande" au lieu de "passerCommande"
-              modelAndView.addObject("produit", produit.get());
-              modelAndView.addObject("client", client.get()); // Ajoutez le client au modèle
-          } else {
-              modelAndView.addObject("errorMessage", "Produit non trouvé");
-          }
-          return modelAndView;
-      }
+    public ModelAndView afficherFormulaireCommande(@RequestParam("idProduit") Long idProduit, 
+                                                  @RequestParam("idCategorie") Long idCategorie,
+                                                  @RequestParam("idClient") Long idClient) {
+        ModelAndView modelAndView = new ModelAndView("passerCommande");
+
+        // Récupérer le produit, le client et la catégorie à partir des ID
+        Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
+        Optional<Client> clientOptional = clientService.getClientById(idClient);
+        Optional<Categorie> categorieOptional = categorieService.getCategorieById(idCategorie);
+
+        if (produitOptional.isPresent() && clientOptional.isPresent() && categorieOptional.isPresent()) {
+            Produit produit = produitOptional.get();
+            Client client = clientOptional.get();
+            Categorie categorie = categorieOptional.get();
+
+            // Créer une nouvelle commande
+            Commande commande = new Commande();
+            commande.setProduit(produit);
+            commande.setClient(client);
+
+            // Ajouter les objets au modèle
+            modelAndView.addObject("commande", commande);
+            modelAndView.addObject("produit", produit);
+            modelAndView.addObject("client", client);
+            modelAndView.addObject("categorie", categorie);
+        } else {
+            // Gérer le cas où l'un des éléments n'est pas trouvé
+            modelAndView.addObject("errorMessage", "Produit, client ou catégorie non trouvé");
+        }
+
+        return modelAndView;
+    }
+
 
 
     @PostMapping("/creerCommande")
     public ModelAndView creerCommande(@ModelAttribute("commande") Commande commande, 
                                       @RequestParam("idProduit") Long idProduit,
+                                      @RequestParam("idCategorie") Long idCategorie,
                                       @RequestParam("idClient") Long idClient,
                                       @RequestParam("dateLivraisonCommande") Date dateLivraisonCommande) {
-        // Récupérer le produit et le client à partir des ID
+        // Récupérer le produit, le client et la catégorie à partir des ID
         Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
         Optional<Client> clientOptional = clientService.getClientById(idClient);
-        
-        if (produitOptional.isPresent() && clientOptional.isPresent()) {
+        Optional<Categorie> categorieOptional = categorieService.getCategorieById(idCategorie);
+
+        if (produitOptional.isPresent() && clientOptional.isPresent() && categorieOptional.isPresent()) {
             Produit produit = produitOptional.get();
             Client client = clientOptional.get();
-            
-            // Lier le produit et le client à la commande
+            Categorie categorie = categorieOptional.get();
+
+            // Lier le produit, le client et la catégorie à la commande
             commande.setProduit(produit);
             commande.setClient(client);
-            
-         // Définir la date de livraison saisie par le client
+            commande.setCategorie(categorie);
+
+            // Définir la date de livraison saisie par le client
             commande.setDateLivraisonCommande(dateLivraisonCommande);
+
             // Enregistrer la commande
             Commande nouvelleCommande = commandeService.creerCommande(commande);
-            
+
             // Récupérer l'ID de la commande enregistrée
             Long idCommande = nouvelleCommande.getIdCommande();
-            
-            // Rediriger vers la page de facture avec l'ID de la commande
+
+            // Rediriger vers la page de facture avec l'ID de la commande et de la catégorie
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.addObject("idCommande", idCommande);
-            modelAndView.setViewName("redirect:/Facture/AfficherFacture?idCommande=" + idCommande);
-            
+            modelAndView.addObject("idCategorie", idCategorie);
+            modelAndView.setViewName("redirect:/Facture/AfficherFacture?idCommande=" + idCommande + "&idCategorie=" + idCategorie);
+
             return modelAndView;
         } else {
-            // Gérer le cas où le produit ou le client n'est pas trouvé
-            // Par exemple, rediriger vers une page d'erreur
+            // Gérer le cas où le produit, le client ou la catégorie n'est pas trouvé
             return new ModelAndView("redirect:/erreur");
         }
     }
+
     @GetMapping("/AllCommandes")
     public List<Commande>getAllCommandes(){
 		

@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,9 @@ public class Facture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idFacture")
     private Long idFacture;
+    
+    @Column(name = "montantPaiementFacture", nullable = false)
+    private double montantPaiementFacture;
 
     @OneToOne
     @JoinColumn(name = "COMMANDE_ID", referencedColumnName="idCommande", nullable = false)
@@ -38,8 +42,10 @@ public class Facture {
     @OneToOne
     @JoinColumn(name = "PRODUIT_ID", referencedColumnName="idProduit",  nullable = false)
     private Produit produit;
-
-    @Column(name = "montantPaiementFacture", nullable = false)
-    private double montantPaiementFacture;
+    
+    @ManyToOne
+	 @JoinColumn(name = "CATEGORIE_ID", referencedColumnName = "idCategorie")
+	 private Categorie categorie;
+	
 
 }

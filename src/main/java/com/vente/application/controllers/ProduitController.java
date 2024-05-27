@@ -31,22 +31,19 @@ public class ProduitController {
 	    	 return produitService.getAllProduits();
 	       
 	    }
-	    
 	    @GetMapping("/produitDetail/{idProduit}")
 	    public ModelAndView getProduitDetail(@PathVariable Long idProduit, Model model) {
-	    	
 	        Optional<Produit> optionalProduit = produitService.getProduitById(idProduit);
-	    	ModelAndView modelAndView = new ModelAndView("produitDetail");
-	        
-	        if (optionalProduit.isPresent()) {
-	        	
-	            modelAndView.addObject("produitDetail", optionalProduit.get());
+	        ModelAndView modelAndView = new ModelAndView("produitDetail");
 	            
-	        }else {
-	    
+	        if (optionalProduit.isPresent()) {
+	            Produit produit = optionalProduit.get();
+	            modelAndView.addObject("produitDetail", produit);
+	            modelAndView.addObject("idCategorie", produit.getCategorie().getIdCategorie());
+	        } else {
 	            modelAndView.addObject("errorMessage", "Produit non trouvé avec ID: " + idProduit);
 	        }
-	        
+	            
 	        return modelAndView;
 	    }
 

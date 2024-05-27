@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -5,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
     <link rel="stylesheet" href="/compteConnexion.css">
+     
 </head>
 <body>
     <header class="header">
@@ -18,14 +20,18 @@
             <div class="connexion-container">
             
                 <form th:action="@{/Compte/creerConnexion}" method="post">
-                   <input type="hidden" name="idProduit" th:value="${idProduit}"/>
+				    <input type="hidden" name="idProduit" th:value="${idProduit}">
+				    <input type="hidden" name="idCategorie" th:value="${idCategorie}">
+				    
+				    <label for="emailClient">Adresse Email :</label>
+				    <input type="email" id="emailClient" name="emailClient" required>
+				    
+				    <label for="motDePasseClient">Mot de passe :</label>
+				    <input type="password" id="motDePasseClient" name="motDePasseClient" required>
+				    
+				    <button type="submit" class="btn-connexion">Continuer</button>
+				</form>
 
-                    <label for="emailClient">Adresse Email :</label>
-                    <input type="email" id="emailClient" name="emailClient" required>
-                    <label for="motDePasseClient">Mot de passe :</label>
-                    <input type="password" id="motDePasseClient" name="motDePasseClient" required>
-                    <button type="submit" class="btn-connexion">Continuer</button>
-                </form>
             </div>
         </section>
     </main>

@@ -10,11 +10,13 @@
         $(document).ready(function() {
             $(".btn-creer-compte").click(function() {
                 var idProduit = new URLSearchParams(window.location.search).get('idProduit');
-                window.location.href = "/Compte/creerCompteForm?idProduit=" + idProduit;
+                var idCategorie = new URLSearchParams(window.location.search).get('idCategorie');
+                window.location.href = "/Compte/creerCompteForm?idProduit=" + idProduit + "&idCategorie=" + idCategorie;
             });
            $(".btn-connexion").click(function() {
                 var idProduit = new URLSearchParams(window.location.search).get('idProduit');
-                window.location.href = "/Compte/compteConnexion?idProduit=" + idProduit;
+                var idCategorie = new URLSearchParams(window.location.search).get('idCategorie');
+                window.location.href = "/Compte/compteConnexion?idProduit=" + idProduit + "&idCategorie=" + idCategorie;
             });
         });
     </script>
@@ -32,7 +34,7 @@
             <h1>Avez-vous un compte?</h1>
             <div class="options">
                 <button class="btn-creer-compte">Creer un compte</button>
-               <button class="btn-connexion" th:onclick="'location.href=&quot;/Compte/compteConnexion&quot;'">Connexion</button>
+               <button class="btn-connexion">Connexion</button>
 
             </div>
         </div>

@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vente.application.entities.Categorie;
 import com.vente.application.entities.Client;
 import com.vente.application.entities.Compte;
 import com.vente.application.entities.Produit;
+import com.vente.application.services.CategorieService;
 import com.vente.application.services.ClientService;
 import com.vente.application.services.CompteService;
 import com.vente.application.services.ProduitService;
@@ -39,6 +41,7 @@ public class CompteController {
 
 	@Autowired
 	private ProduitService produitService;
+	
 	
 	
 
@@ -82,33 +85,34 @@ public class CompteController {
         }
     }
     
-    
-        @GetMapping("/compteConnexion")
-        public ModelAndView showCompteConexion(@RequestParam(value = "idProduit", required = false) Long idProduit) {
-            ModelAndView modelAndView = new ModelAndView("compteConnexion");
-            modelAndView.addObject("client", new Client());
-            modelAndView.addObject("idProduit", idProduit);
-            return modelAndView;
-        }
+    @GetMapping("/compteConnexion")
+    public ModelAndView showCompteConnexion(@RequestParam(value = "idProduit", required = false) Long idProduit,
+                                               @RequestParam(value = "idCategorie", required = false) Long idCategorie) {
+        ModelAndView modelAndView = new ModelAndView("compteConnexion");
+        modelAndView.addObject("idProduit", idProduit);
+        modelAndView.addObject("idCategorie", idCategorie);
+        return modelAndView;
+    }
     @PostMapping("/creerConnexion")
     public ModelAndView connexion(@RequestParam("emailClient") String emailClient,
                                   @RequestParam("motDePasseClient") String motDePasseClient,
-                                  @RequestParam("idProduit") Long idProduit) {
-        
+                                  @RequestParam("idProduit") Long idProduit,
+                                  @RequestParam("idCategorie") Long idCategorie) {
         Optional<Client> clientOptional = clientService.getClientByEmailClientAndMotDePasseClient(emailClient, motDePasseClient);
-        Optional<Produit> produitOptional = produitService.getProduitById(idProduit);
-        
-        if (clientOptional.isPresent() && produitOptional.isPresent()) {
+
+        if (clientOptional.isPresent()) {
             Client client = clientOptional.get();
-            Produit produit = produitOptional.get();
-            
-            return new ModelAndView("redirect:/Commande/commandeForm?idProduit=" + produit.getIdProduit() + "&idClient=" + client.getIdClient());
+            return new ModelAndView("redirect:/Commande/commandeForm?idProduit=" + idProduit + "&idCategorie=" + idCategorie + "&idClient=" + client.getIdClient());
         } else {
-            ModelAndView modelAndView = new ModelAndView("compteConnexion");
-            modelAndView.addObject("message", "Connexion échouée");
-            return modelAndView;
+        	  ModelAndView modelAndView = new ModelAndView("compteConnexion");
+              modelAndView.addObject("erreur", true);
+              modelAndView.addObject("idProduit", idProduit);
+              modelAndView.addObject("idCategorie", idCategorie);
+              return modelAndView;
         }
-    }
+        }
+  
+
     
     
     
