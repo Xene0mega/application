@@ -1,19 +1,12 @@
 package com.vente.application.services;
 
-import java.util.List; 
+import java.util.List;  
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.vente.application.entities.Client;
-import com.vente.application.entities.Commande;
 import com.vente.application.entities.Facture;
-import com.vente.application.entities.Produit;
-import com.vente.application.repository.ClientDao;
-import com.vente.application.repository.CommandeDao;
 import com.vente.application.repository.FactureDao;
-import com.vente.application.repository.ProduitDao;
 
 import lombok.RequiredArgsConstructor;
 

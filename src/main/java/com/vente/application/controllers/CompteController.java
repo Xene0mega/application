@@ -1,6 +1,6 @@
 package com.vente.application.controllers;
 
-import java.util.List;  
+import java.util.List;   
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.vente.application.entities.Categorie;
 import com.vente.application.entities.Client;
 import com.vente.application.entities.Compte;
-import com.vente.application.entities.Produit;
-import com.vente.application.services.CategorieService;
 import com.vente.application.services.ClientService;
 import com.vente.application.services.CompteService;
-import com.vente.application.services.ProduitService;
 
 import ch.qos.logback.core.model.Model;
-
+  
 
 @RestController
 @RequestMapping("/Compte")
@@ -39,8 +35,7 @@ public class CompteController {
 	@Autowired
 	private ClientService clientService;
 
-	@Autowired
-	private ProduitService produitService;
+
 	
 	
 	
