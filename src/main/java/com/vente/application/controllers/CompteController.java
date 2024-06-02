@@ -42,9 +42,14 @@ public class CompteController {
 
 	
 	
-	@GetMapping("/compteVerification")
+	@GetMapping("/compteVerificationProduit")
 	public ModelAndView compteVerification(Model model) {
 		ModelAndView modelAndView = new ModelAndView("compteVerification");
+		return modelAndView;
+	}
+	@GetMapping("/compteVerificationPanier")
+	public ModelAndView compteVerificationPanier(Model model) {
+		ModelAndView modelAndView = new ModelAndView("compteVerificationPanier");
 		return modelAndView;
 	}
 
@@ -59,7 +64,7 @@ public class CompteController {
         return compteService.getCompteByClientId(idCompte);
     }
 
-    @GetMapping("/creerCompteForm")
+    @GetMapping("/creerCompteFormProduit")
     public ModelAndView showCreerCompteForm(Model model) {
     	ModelAndView modelAndView = new ModelAndView("compteCreation");
         modelAndView.addObject("client", new Client());
@@ -68,7 +73,8 @@ public class CompteController {
         return modelAndView; // Le nom de votre fichier HTML pour le formulaire de création de compte
     }
     
-    @PostMapping("/creerCompte")
+    
+    @PostMapping("/creerCompteProduit")
     public ResponseEntity<String> creerCompte(Client client,Long idClient) {
         try {
         	compteService.creerCompte(client);
@@ -80,7 +86,67 @@ public class CompteController {
         }
     }
     
-    @GetMapping("/compteConnexion")
+    
+    
+    
+    
+    @GetMapping("/creerCompteFormPanier")
+    public ModelAndView showCreerCompteFormPanier(Model model) {
+    	ModelAndView modelAndView = new ModelAndView("compteCreationPanier");
+        modelAndView.addObject("client", new Client());
+       
+        
+        return modelAndView; // Le nom de votre fichier HTML pour le formulaire de création de compte
+    }
+    
+    
+    @PostMapping("/creerComptePanier")
+    public ResponseEntity<String> creerComptePanier(Client client,Long idClient) {
+        try {
+        	compteService.creerCompte(client);
+             idClient =client.getIdClient();// Assurez-vous que cette méthode retourne l'ID du client créé
+
+            return ResponseEntity.ok(idClient.toString()); // Retournez l'ID du client dans la réponse
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la création du compte");
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @GetMapping("/compteConnexionProduit")
     public ModelAndView showCompteConnexion(@RequestParam(value = "idProduit", required = false) Long idProduit,
                                                @RequestParam(value = "idCategorie", required = false) Long idCategorie) {
         ModelAndView modelAndView = new ModelAndView("compteConnexion");
@@ -88,7 +154,7 @@ public class CompteController {
         modelAndView.addObject("idCategorie", idCategorie);
         return modelAndView;
     }
-    @PostMapping("/creerConnexion")
+    @PostMapping("/creerConnexionProduit")
     public ModelAndView connexion(@RequestParam("emailClient") String emailClient,
                                   @RequestParam("motDePasseClient") String motDePasseClient,
                                   @RequestParam("idProduit") Long idProduit,
@@ -106,6 +172,33 @@ public class CompteController {
               return modelAndView;
         }
         }
+    
+    @GetMapping("/compteConnexionPanier")
+    public ModelAndView showCompteConnexionPanier(@RequestParam(value = "idPanier", required = false) Long idPanier,
+                                               @RequestParam(value = "idClient", required = false) Long idClient) {
+        ModelAndView modelAndView = new ModelAndView("compteConnexionPanier");
+        modelAndView.addObject("idPanier", idPanier);
+        modelAndView.addObject("idClient", idClient);
+        return modelAndView;
+    }
+    @PostMapping("/creerConnexionPanier")
+    public ModelAndView connexionPanier(@RequestParam("emailClient") String emailClient,
+                                  @RequestParam("motDePasseClient") String motDePasseClient,
+                                  @RequestParam("idPanier") Long idPanier) {
+        Optional<Client> clientOptional = clientService.getClientByEmailClientAndMotDePasseClient(emailClient, motDePasseClient);
+
+        if (clientOptional.isPresent()) {
+            Client client = clientOptional.get();
+            return new ModelAndView("redirect:/Facture/factureLivraisonPanier?idPanier=" + idPanier+ "&idClient=" + client.getIdClient());
+        } else {
+        	  ModelAndView modelAndView = new ModelAndView("compteConnexion");
+              modelAndView.addObject("erreur", true);
+              modelAndView.addObject("idPanier", idPanier);
+              return modelAndView;
+        }
+        }
+  
+
   
 
     

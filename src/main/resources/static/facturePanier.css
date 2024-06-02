@@ -1,0 +1,103 @@
+/* Styles pour la facture */
+.header {
+    padding: 20px;
+    margin-top: -10px;
+    padding-left: 50px;
+    background-color: #333333;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    right: 62px;
+}
+
+#p1 {
+    color: white;
+}
+
+#p2 {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 21px;
+}
+
+.marketplace {
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+.facturePanier {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.facturePanier h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.facturePanier p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.facturePanier h2 {
+    font-size: 20px;
+    color: #333;
+    text-align: left;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.facturePanier h3 {
+    font-size: 18px;
+    color: #333;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.facturePanier span {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.facturePanier ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.facturePanier ul li {
+    margin-bottom: 10px;
+    
+    font-size: 18px;
+}
+#p3, #p4{
+	
+    font-size: 18px;
+}
+#Red{
+	color: red;
+}
+.retourAcceuil {
+    background-color: #4CAF50; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    padding: 10px 20px; /* Espacement intérieur du bouton */
+    border: none; /* Supprimer la bordure */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; 
+}
+
+.retourAcceuil:hover {
+    background-color: #45a049; /* Couleur de fond au survol */
+}
+#pL{
+	
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+}

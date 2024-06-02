@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/listeFactureProduit.css">
+    <title>Liste des Factures de produits</title>
+</head>
+<body>
+    <header class="header">
+        <div class="marketplace">
+            <h1 id="p1">MARKET PLACE</h1>
+            <p id="p2">Liste de facture du produit</p>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="facturesProduit-container">
+            <div class="factureProduit" th:each="factureProduit : ${listeFactureProduit}">
+                <h2>Facture ID: <span th:text="${factureProduit.idFactureProduit}"></span></h2>
+                <p>Nom du produit: <span th:text="${factureProduit.produit.nomProduit}"></span></p>
+                <p>Prix du produit: <span th:text="${factureProduit.produit.prixProduit + ' FCFA'}"></span></p>
+                <p>Nom du client: <span th:text="${factureProduit.client.nomClient}"></span></p>
+                <p>ID du compte: <span th:text="${factureProduit.client.idClient}"></span></p>
+                <p>Date de la commande: <span th:text="${#dates.format(factureProduit.commande.dateCommande, 'yyyy-MM-dd')}"></span></p>
+                <p>Date de livraison: <span th:if="${factureProduit.commande.dateLivraisonCommande != null}" th:text="${#dates.format(factureProduit.commande.dateLivraisonCommande, 'yyyy-MM-dd')}"></span><span th:if="${factureProduit.commande.dateLivraisonCommande == null}">Date non disponible</span></p>
+                <p>Montant Paiement: <span th:text="${factureProduit.montantPaiementFactureProduit + ' FCFA'}"></span></p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <a th:href="@{/Categories/voirTout}">Retour à l'accueil</a>
+    </footer>
+</body>
+</html>

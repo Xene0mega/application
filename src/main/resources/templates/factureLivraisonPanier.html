@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Date de livraison du panier</title>
+    
+    <link rel="stylesheet" href="/factureLivraisonPanier.css">
+</head>
+<body>
+    <h1>Saisissez la date de livraison</h1>
+    <form th:action="@{/Facture/AfficherFacturePanier}" method="get">
+    
+        <input type="hidden" name="idPanier" th:value="${idPanier}">
+        <input type="hidden" name="idClient" th:value="${idClient}">
+        <label for="dateLivraison">Date de livraison :</label>
+        <input type="date" id="dateLivraison" name="dateLivraisonPanier" required>
+        <br>
+        <button type="submit">Suivant</button>
+    </form>
+</body>
+</html>

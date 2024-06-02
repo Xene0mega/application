@@ -63,9 +63,14 @@ body {
 	text-indent: 1120px;
 	font-size:30px;
 	margin-top: 20px;
+	text-decoration:none;
+	color:black;
+	position: relative;
+	bottom:-20px;
+	left: 1135px;
 }
 #slash{
-	text-indent: 80px;
+	text-indent: 1220px;
 	font-size:40px;
 	margin-top: 13px;
 }

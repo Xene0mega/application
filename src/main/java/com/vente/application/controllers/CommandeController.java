@@ -115,15 +115,16 @@ public class CommandeController {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.addObject("idCommande", idCommande);
             modelAndView.addObject("idCategorie", idCategorie);
-            modelAndView.setViewName("redirect:/Facture/AfficherFacture?idCommande=" + idCommande + "&idCategorie=" + idCategorie);
+            modelAndView.setViewName("redirect:/Facture/AfficherFactureProduit?idCommande=" + idCommande + "&idCategorie=" + idCategorie);
 
             return modelAndView;
         } else {
             // Gérer le cas où le produit, le client ou la catégorie n'est pas trouvé
             return new ModelAndView("redirect:/erreur");
         }
+        
+        
     }
-
     @GetMapping("/AllCommandes")
     public List<Commande>getAllCommandes(){
 		

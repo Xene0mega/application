@@ -10,27 +10,14 @@
     <header class="header">
         <div class="marketplace">
             <h1 id="p1">MARKET PLACE</h1>
-            <p id="p2">Facture de commande</p>
+            <p id="p2">Liste de facture du produit</p>
         </div>
     </header>
 
-    <main class="main">
-        <div class="factures-container">
-            <div class="facture" th:each="facture : ${listeFacture}">
-                <h2>Facture ID: <span th:text="${facture.idFacture}"></span></h2>
-                <p>Nom du produit: <span th:text="${facture.produit.nomProduit}"></span></p>
-                <p>Prix du produit: <span th:text="${facture.produit.prixProduit + ' FCFA'}"></span></p>
-                <p>Nom du client: <span th:text="${facture.client.nomClient}"></span></p>
-                <p>ID du compte: <span th:text="${facture.client.idClient}"></span></p>
-                <p>Date de la commande: <span th:text="${#dates.format(facture.commande.dateCommande, 'yyyy-MM-dd')}"></span></p>
-                <p>Date de livraison: <span th:if="${facture.commande.dateLivraisonCommande != null}" th:text="${#dates.format(facture.commande.dateLivraisonCommande, 'yyyy-MM-dd')}"></span><span th:if="${facture.commande.dateLivraisonCommande == null}">Date non disponible</span></p>
-                <p>Montant Paiement: <span th:text="${facture.montantPaiementFacture + ' FCFA'}"></span></p>
-            </div>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <a th:href="@{/Categories/voirTout}">Retour à l'accueil</a>
-    </footer>
+    <div class="buttons-container">
+        <a href="/Facture/AllFacturesProduits" class="button">Facture Produits</a>
+        <a href="/Facture/AllFacturesPaniers" class="button">Facture Paniers</a>
+    </div>
 </body>
 </html>
+

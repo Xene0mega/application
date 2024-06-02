@@ -22,6 +22,7 @@ import lombok.Setter;
 public class PanierProduit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idPanierProduit")
     private Long idPanierProduit;
     
     @ManyToOne

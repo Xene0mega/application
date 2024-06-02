@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panier</title>
+    <link rel="stylesheet" href="/panier.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $(".btn-block").click(function() {
+            var idPanierProduit = $(this).data("idpanierproduit");
+            var idPanier = $(this).data("idpanier");
+            window.location.href = "/Compte/compteVerificationPanier?idPanier=" + idPanier;
+        });
+    });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <div class="marketplace">
+            <h1 id="p1">MARKET PLACE</h1>
+            <p id="p2">votre panier</p>
+        </div>
+    </header>
+    <div class="container my-5">
+        <h1 class="titre1">Votre Panier</h1>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-custom">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Prix</th>
+                                    <th>Quantité en stock</th>
+                                    <th>Quantité dans le panier</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="panierProduit : ${panierProduits}">
+                                    <td id="td1" th:text="${panierProduit.produit.nomProduit}"></td>
+                                    <td id="td2" th:text="${panierProduit.produit.prixProduit}"></td>
+                                    <td id="td3" th:text="${panierProduit.produit.quantiteEnStockProduit}"></td>
+                                    <td>
+                                        <input type="number" class="form-control" th:value="${panierProduit.quantiteProduitEnStock}" min="1" th:max="${panierProduit.produit.quantiteEnStockProduit}">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card summary-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Récapitulatif</h5>
+                        <p class="card-text">Quantité totale : <span th:text="${quantiteTotalProduitPanier}"></span></p>
+                        <p class="card-text">Prix total : <span th:text="${prixTotalPanier}"></span> FCFA</p>
+                    </div>
+                    <button class="btn btn-primary btn-block" th:each="panierProduit : ${panierProduits}"
+                            th:attr="data-idpanier=${panierProduit.panier.idPanier}">Commander</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

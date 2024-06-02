@@ -15,21 +15,21 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "facture")
+@Table(name = "factureProduit")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Facture {
+public class FactureProduit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idFacture")
-    private Long idFacture;
+    @Column(name = "idFactureProduit")
+    private Long idFactureProduit;
     
-    @Column(name = "montantPaiementFacture", nullable = false)
-    private double montantPaiementFacture;
+    @Column(name = "montantPaiementFactureProduit", nullable = false)
+    private Double montantPaiementFactureProduit;
 
     @OneToOne
     @JoinColumn(name = "COMMANDE_ID", referencedColumnName="idCommande", nullable = false)

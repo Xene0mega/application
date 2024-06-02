@@ -19,9 +19,9 @@
         <section class="section2">
             <div class="connexion-container">
             
-                <form th:action="@{/Compte/creerConnexionProduit}" method="post">
-				    <input type="hidden" name="idProduit" th:value="${idProduit}">
-				    <input type="hidden" name="idCategorie" th:value="${idCategorie}">
+                <form th:action="@{/Compte/creerConnexionPanier}" method="post">
+				    <input type="hidden" name="idPanier" th:value="${idPanier}">
+				    <input type="hidden" name="idClient" th:value="${idClient}">
 				    
 				    <label for="emailClient">Adresse Email :</label>
 				    <input type="email" id="emailClient" name="emailClient" required>

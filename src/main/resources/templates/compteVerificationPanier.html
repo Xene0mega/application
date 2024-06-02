@@ -9,14 +9,13 @@
     <script>
         $(document).ready(function() {
             $(".btn-creer-compte").click(function() {
-                var idProduit = new URLSearchParams(window.location.search).get('idProduit');
-                var idCategorie = new URLSearchParams(window.location.search).get('idCategorie');
-                window.location.href = "/Compte/creerCompteFormProduit?idProduit=" + idProduit + "&idCategorie=" + idCategorie;
+                var idPanier = new URLSearchParams(window.location.search).get('idPanier');
+                window.location.href = "/Compte/creerCompteFormPanier?idPanier="+ idPanier;
             });
-           $(".btn-connexion").click(function() {
-                var idProduit = new URLSearchParams(window.location.search).get('idProduit');
-                var idCategorie = new URLSearchParams(window.location.search).get('idCategorie');
-                window.location.href = "/Compte/compteConnexionProduit?idProduit=" + idProduit + "&idCategorie=" + idCategorie;
+            $(".btn-connexion").click(function() {
+
+                var idPanier = new URLSearchParams(window.location.search).get('idPanier');
+                window.location.href = "/Compte/compteConnexionPanier?idPanier="+ idPanier;
             });
         });
     </script>
@@ -33,9 +32,8 @@
         <div class="connexion-container">
             <h1>Avez-vous un compte?</h1>
             <div class="options">
-                <button class="btn-creer-compte">Creer un compte</button>
-               <button class="btn-connexion">Connexion</button>
-
+                <button class="btn-creer-compte">Créer un compte</button>
+                <button class="btn-connexion">Connexion</button>
             </div>
         </div>
     </section>

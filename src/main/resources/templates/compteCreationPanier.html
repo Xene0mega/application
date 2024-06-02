@@ -12,16 +12,14 @@
                 event.preventDefault();
                 
                 // Récupère l'ID du produit depuis les paramètres de requête
-                var idProduit = new URLSearchParams(window.location.search).get('idProduit');
-
-                var idCategorie = new URLSearchParams(window.location.search).get('idCategorie');
+                var idPanier = new URLSearchParams(window.location.search).get('idPanier');
                 
                 var formData = $(this).serialize();
                 $.post($(this).attr("action"), formData)
                     .done(function(data) {
                     	 var idClient = data; // Récupérer l'ID du client retourné dans la réponse
                         alert("Votre compte a été créé avec succès !");
-                        window.location.href = "/Commande/commandeForm?idProduit=" + idProduit + "&idCategorie=" + idCategorie + "&idClient=" + idClient; // Redirection vers la page de commande avec l'ID du produit
+                        window.location.href = "/Facture/FactureLivraisonPanier?idPanier=" + idPanier + "&idClient=" + idClient; // Redirection vers la page de commande avec l'ID du produit
                     })
                     .fail(function() {
                         alert("Erreur lors de la création de votre compte.");
@@ -38,7 +36,7 @@
     </div>
 </header>
 
-    <form id="creationCompteForm" th:action="@{/Compte/creerCompteProduit}" th:object="${client}" method="post">
+    <form id="creationCompteForm" th:action="@{/Compte/creerComptePanier}" th:object="${client}" method="post">
       <h1>Création de compte</h1>
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="nom" th:field="*{nomClient}" required><br>

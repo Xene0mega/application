@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="/listeFacturePanier.css">
+    <title>Facture Panier</title>
+</head>
+<body>
+    <header class="header">
+        <div class="marketplace">
+            <h1 id="p1">MARKET PLACE</h1>
+            <p id="p2">liste de facture de paniers</p>      
+        </div>
+    </header>
+    <ul>
+        <li th:each="facturePanier : ${listeFacturePanier}">
+            <h2>Facture du Panier</h2>
+            
+            <p id="p3">Nom du client : <span th:text="${facturePanier.client.nomClient}"></span></p>
+            <p id="p4">ID du compte : <span th:text="${facturePanier.client.idClient}"></span></p>
+            
+            <h2>Produits du Panier</h2>
+            <ul>
+                <li th:each="panier : ${facturePanier.panier.produits}">
+                    <span th:text="${panier.produit.nomProduit}"></span> - 
+                    <span id="Red" th:text="${panier.produit.prixProduit}"></span> FCFA
+                </li>
+            </ul>
+
+            <h3>Frais de Livraison: <span th:text="${facturePanier.fraisLivraisonPanier}"></span> FCFA</h3>
+            <h3>Montant Total: <span id="Red" th:text="${facturePanier.montantPaiementFacturePanier}"></span> FCFA</h3>
+            
+            <p id="pL">Date de livraison : <span th:text="${facturePanier.dateFacturePanier}"></span></p>
+            <p id="pL">Date de Facture : <span th:text="${facturePanier.dateLivraisonPanier}"></span></p>
+        </li>
+    </ul>
+
+    <footer class="footer">
+        <a th:href="@{/Categories/voirTout}">Retour à l'accueil</a>
+    </footer>
+</body>
+</html>

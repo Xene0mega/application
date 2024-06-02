@@ -73,7 +73,7 @@ public class PanierService {
             // Récupérer le panier actuel de l'utilisateur (à implémenter selon votre logique)
             Panier panier = getCurrentUserPanier();
 
-            // Si le panier est nouveau (transient), il doit être sauvegardé d'abord
+            // Si le panier est nouveau , il doit être sauvegardé d'abord
             if (panier.getIdPanier() == null) {
                 panier = panierDao.save(panier);
             }

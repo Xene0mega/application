@@ -21,7 +21,7 @@
    margin-right:30px;
 }
 
-.facture {
+.factureProduit {
     margin: 20px;
     padding: 20px;
     border: 1px solid #ccc;
@@ -29,20 +29,20 @@
     background-color: #fff;
 }
 
-.facture h1 {
+.factureProduit h1 {
     font-size: 24px;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.facture p {
+.factureProduit p {
     font-size: 16px;
     color: #555;
     margin-bottom: 10px;
 }
 
-.facture span {
+.factureProduit span {
     font-weight: bold;
     color: #007bff;
 }

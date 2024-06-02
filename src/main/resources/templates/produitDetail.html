@@ -11,7 +11,22 @@
         $(".acheterMaintenant").click(function() {
             var idProduit = $(this).data("idproduit"); // Récupère l'ID du produit depuis l'attribut data-idproduit du bouton
             var idCategorie = $(this).data("idcategorie"); // Récupère l'ID de la catégorie depuis l'attribut data-idcategorie du bouton
-            window.location.href = "/Compte/compteVerification?idProduit=" + idProduit + "&idCategorie=" + idCategorie; // Redirection vers la page de vérification du compte avec l'ID du produit et de la catégorie
+            window.location.href = "/Compte/compteVerificationProduit?idProduit=" + idProduit + "&idCategorie=" + idCategorie; // Redirection vers la page de vérification du compte avec l'ID du produit et de la catégorie
+        });
+        $(".ajouterAuPanier").click(function() {
+            var idProduit = $(this).data("idproduit");
+            var idCategorie = $(this).data("idcategorie"); 
+            $.ajax({
+                url: "/Panier/ajouterProduit?idProduit=" + idProduit + "&idCategorie=" + idCategorie,
+                type: "POST",
+                data: { idProduit: idProduit, idCategorie: idCategorie },
+                success: function(response) {
+                    alert(response);
+                },
+                error: function(xhr, status, error) {
+                    alert("Erreur lors de l'ajout au panier");
+                }
+            });
         });
     });
    </script>
@@ -21,10 +36,21 @@
     <div class="bande1">
         <input type="text" placeholder="Rechercher un produit..." class="case">
         <button class="rechercher" type="submit">Rechercher</button>
-        <ul class="align">
-            <li><img class="panier" src="/img/panier.png"></li>
-            <li><p id="m1">panier</p></li>
+           <ul class="align">
+            <li><a href="/Panier/AfficherPanier"><img class="panier" src="/img/panier.png"></a></li>
+            <li>
+              <a id="m1" href="/Panier/AfficherPanier">
+                <span>panier</span>
+              </a>
+            </li>
+            
+            
+            
+            
             <li><p id="slash">|</p></li>
+            
+            
+            
             <li><a href="/Facture/AllFactures"><img class="facture" src="/img/compte1.png"></a></li>
            
             <li><a id="m2" href="/Facture/AllFactures">
@@ -59,7 +85,7 @@
                 <p th:text="${produitDetail.descriptionProduit}"></p>
                 <p th:text="${produitDetail.prixProduit} + ' Franc CFA'"></p>
               <button class="acheterMaintenant" th:attr="data-idproduit=${produitDetail.idProduit}, data-idcategorie=${idCategorie}">Acheter maintenant</button>
-              <button>ajouter au panier</button>
+              <button class="ajouterAuPanier" th:attr="data-idproduit=${produitDetail.idProduit}, data-idcategorie=${idCategorie}">Ajouter au panier</button>
             </div>
         </div>
     </section>
