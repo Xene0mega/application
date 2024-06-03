@@ -16,7 +16,7 @@
     </header>
     <ul>
         <li th:each="facturePanier : ${listeFacturePanier}">
-            <h2>Facture du Panier</h2>
+            <h2 id="h2">Facture du Panier</h2>
             
             <p id="p3">Nom du client : <span th:text="${facturePanier.client.nomClient}"></span></p>
             <p id="p4">ID du compte : <span th:text="${facturePanier.client.idClient}"></span></p>

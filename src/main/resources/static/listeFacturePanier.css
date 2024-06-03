@@ -73,13 +73,17 @@ li h2, li p {
 li h2 span, li p span {
     color: blue; /* Couleur bleue pour les valeurs des champs */
 }
+#h2{
+	text-align: center;
+}
 
 #Red {
     color: red; /* Couleur rouge pour les montants */
 }
 
-#pL {
-    font-style: italic; /* Style italique pour la date de livraison */
+#pL, #p3, #p4 {
+    font-size:18px;
+    font-weight: bold; /* Style italique pour la date de livraison */
 }
 
 .footer {
@@ -89,6 +93,9 @@ li h2 span, li p span {
     text-align: center;
      margin-top: 200px;
      padding-top:25px;
+}
+h3 span{
+	color: blue;
 }
 
 .footer a {
