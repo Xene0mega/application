@@ -27,12 +27,13 @@ body {
     padding: 10px;
     text-align: center;
      margin-top: 200px;
-     padding-top:25px;
+     padding-top:39px;
 }
 
 .footer a {
    	color: rgba(255,255,255, 0.5);
     text-decoration: none;
+   
    
 }
 .footer a:hover{
