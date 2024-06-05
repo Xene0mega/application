@@ -49,7 +49,7 @@ public class ProduitService {
 			newProduit.setImageProduit(produit.getImageProduit());
 			newProduit.setPrixProduit(produit.getPrixProduit());
 			newProduit.setQuantiteEnStockProduit(produit.getQuantiteEnStockProduit());
-			
+			newProduit.setCategorie(produit.getCategorie());		
 			
 			return produitDao.save(newProduit);
 		}else {

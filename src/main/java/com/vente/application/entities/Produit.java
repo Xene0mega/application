@@ -1,6 +1,6 @@
 package com.vente.application.entities;
 
-import java.util.List;
+import java.util.List; 
 
 import jakarta.persistence.Column; 
 import jakarta.persistence.Entity;
@@ -8,7 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -32,7 +31,7 @@ public class Produit {
 	@Column(name = "nomProduit", nullable = false, length = 100)
 	private String nomProduit;
 	
-	@Column(name = "descriptionProduit", nullable = false, length = 1000)
+	@Column(name = "descriptionProduit", nullable = false, length = 10000)
 	private String descriptionProduit;
 	
 	@Column(name = "imageProduit", nullable = false, unique=true)
@@ -47,10 +46,6 @@ public class Produit {
     @ManyToOne
 	@JoinColumn(name ="CATEGORIE_ID", nullable=false, referencedColumnName="idCategorie")
 	private Categorie categorie;
-    
-    @ManyToOne
-    @JoinColumn(name = "PANIER_ID", referencedColumnName = "idPanier")
-    private Panier panier;
     
 
 

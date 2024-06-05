@@ -19,39 +19,6 @@ body {
     padding:0px;/* Permet de positionner les éléments enfants de manière absolue */
 }
 
-.case {
-    position: absolute;
-    top: 18px;
-    left: 103px;
-    height: 27px;
-    border-radius: 10px 0 0 10px;
-    width: 400px;
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-.case:focus {
-    outline: none;
-}
-
-.case:hover {
-    background-color: white;
-}
-
-.rechercher {
-    position: absolute;
-    top: 18px;
-    left: 487px;
-    height: 33px;
-    color: black;
-    background-color: #f5f5f5;
-    width: 100px;
-}
-
-.rechercher:hover {
-    color: white;
-    background-color: blue;
-}
-
 /* Styles pour l'alignement des éléments dans l'en-tête */
 .align {
     display: flex;
