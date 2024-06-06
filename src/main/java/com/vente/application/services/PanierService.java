@@ -31,6 +31,12 @@ public class PanierService {
 	private ProduitDao produitDao;
 
  
+	// Créer un nouveau panier vide
+	public Panier creerPanierVide() {
+	    return new Panier();
+	}
+
+	
     public List<Panier> getAllPaniers() {
         return panierDao.findAll();
     }
@@ -61,7 +67,7 @@ public class PanierService {
         }
     }
 
-    public void deletePanier(Long idPanier) {
+    public void deletePanierById(Long idPanier) {
         panierDao.deleteById(idPanier);
     }
     public void deleteAllPanier() {
@@ -120,6 +126,8 @@ public class PanierService {
             return newPanier;
         }
     }
+
+
     
    
 

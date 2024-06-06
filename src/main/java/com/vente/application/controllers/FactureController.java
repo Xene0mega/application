@@ -60,6 +60,9 @@ public class FactureController {
 	 @Autowired
 	 private PanierService panierService;
 	 
+	 @Autowired
+	 private PanierProduitService panierProduitService;
+	 
 	 
 
 	 @GetMapping("/AfficherFactureProduit")
@@ -227,9 +230,24 @@ public class FactureController {
 		         facturePanier.setPanier(panier);
 		         facturePanier.setClient(client);
 		        
-
-		         // Enregistrer la facture
-		         facturePanierService.creerFacturePanier(facturePanier, panier);
+		         Optional<FacturePanier> facturePanierOptional = facturePanierService.getFacturePanierById(idPanier);
+		         if (facturePanierOptional.isPresent()) {
+		        	 
+		             FacturePanier facturePanier0 = facturePanierOptional.get();
+		             
+			         facturePanier0.setDateFacturePanier(dateFacturePanier); 
+			         facturePanier0.setFraisLivraisonPanier(fraisLivraisonPanier);
+			         facturePanier0.setMontantPaiementFacturePanier(montantPaiementFacturePanier);
+			         facturePanier0.setPanier(panier);
+			         facturePanier0.setClient(client);
+			         
+			         facturePanierService.mettreAjourFacturePanier(facturePanier0);
+		         }else {
+		        	// Enregistrer la facture
+			         facturePanierService.creerFacturePanier(facturePanier, panier);
+		         }
+		         
+		         
 
 		         ModelAndView modelAndView = new ModelAndView("redirect:/Categories/voirTout");
 		         return modelAndView;

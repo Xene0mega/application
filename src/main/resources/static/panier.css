@@ -103,18 +103,21 @@ body {
     border-bottom: 1px solid #dee2e6;
 }
 
-.summary-card {
+.footer {
     background-color: #333333;
     color: #fff;
     border-radius: 10px;
     padding-bottom:40px;
+    position:relative;
+    top:-0px;
 }
 
-.summary-card .card-title,
-.summary-card .card-text {
+.foot .card-title,
+.foot .card-text {
 	font-size: 20px;
     color: #fff;
 }
+
 
 .btn-primary {
     background-color: blue;
@@ -128,7 +131,7 @@ body {
     
    
 }
-.summary-card .btn-primary:hover{
+.footer.btn-primary:hover{
 	 background-color: darkblue;
 }
 

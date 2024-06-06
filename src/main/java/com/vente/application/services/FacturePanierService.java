@@ -114,7 +114,9 @@ public class FacturePanierService {
 		
 	}
 	
-	
+	public void mettreAjourFacturePanier(FacturePanier facturePanier) {
+	    facturePanierDao.save(facturePanier);
+	}
 
 	  
 }
