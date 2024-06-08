@@ -31,7 +31,7 @@ public class Panier {
     @Column(name = "prixTotalPanier", nullable = false, length = 20)
     private double prixTotalPanier;
     
-    @Column(name = "quantiteTotalPanier", nullable = false, length = 20)
+    @Column(name = "quantiteTotalProduitPanier", nullable = false, length = 20)
     private int quantiteTotalProduitPanier;
     
     @Column(name = "dateCreationPanier", nullable = false)

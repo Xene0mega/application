@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.vente.application.entities.Panier;
 import com.vente.application.entities.PanierProduit;
 import com.vente.application.entities.Produit;
+import com.vente.application.services.PanierProduitService;
 import com.vente.application.services.PanierService;
 import com.vente.application.services.ProduitService;
 
@@ -34,6 +35,9 @@ public class PanierController {
 
     @Autowired
     private ProduitService produitService;
+    
+    @Autowired
+  private PanierProduitService panierProduitService;
     
     
     @GetMapping("/AfficherPanier")
@@ -82,6 +86,20 @@ public class PanierController {
     public void deleteAllPanier() {
         panierService.deleteAllPanier();
     }
+    
+    @GetMapping("/supprimerProduitPanier/{idPanierProduit}")
+    public ModelAndView supprimerProduitPanier(@PathVariable Long idPanierProduit) {
+    	
+    	try {
+    	panierProduitService.deletePanierProduit(idPanierProduit);
+    	return new ModelAndView("redirect:/Panier/AfficherPanier");
+    	}catch(Exception e) {
+    		return new ModelAndView("redirect:/Panier/AfficherPanier");
+    	}
+    	
+    	
+    }
+    
         
        
     }

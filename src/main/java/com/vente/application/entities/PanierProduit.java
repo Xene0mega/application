@@ -36,7 +36,7 @@ public class PanierProduit {
     @Column(name = "CATEGORIE_ID", nullable=false)
     private Long idCategorie;
     
-    @Column(name = "quantiteProduitEnStock", nullable = false)
-    private int quantiteProduitEnStock;
+    @Column(name = "quantiteProduitEnStockPanier", nullable = false)
+    private int quantiteProduitEnStockPanier;
     
 }

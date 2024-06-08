@@ -93,7 +93,7 @@ public class PanierService {
             panierProduit.setPanier(panier);
             panierProduit.setProduit(produit);
             panierProduit.setIdCategorie(idCategorie);
-            panierProduit.setQuantiteProduitEnStock(1); // Assigner une valeur initiale
+            panierProduit.setQuantiteProduitEnStockPanier(1); // Assigner une valeur initiale
 
 
             // Sauvegarder l'entrée PanierProduit

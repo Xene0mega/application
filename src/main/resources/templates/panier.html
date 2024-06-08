@@ -8,9 +8,12 @@
     <script>
     $(document).ready(function() {
         $(".btn-block").click(function() {
-            var idPanierProduit = $(this).data("idpanierproduit");
             var idPanier = $(this).data("idpanier");
             window.location.href = "/Compte/compteVerificationPanier?idPanier=" + idPanier;
+        });
+        $(".btn-delete").click(function() {
+            var idPanierProduit = $(this).data("idpanierproduit");
+            window.location.href = "/Panier/supprimerProduitPanier/" + idPanierProduit;
         });
     });
     </script>
@@ -35,16 +38,25 @@
                                     <th>Prix</th>
                                     <th>Quantité en stock</th>
                                     <th>Quantité dans le panier</th>
+                                    <th>supprimer</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="panierProduit : ${panierProduits}">
+                                <tr th:if="${panierProduits != null}" th:each="panierProduit : ${panierProduits}">
                                     <td id="td1" th:text="${panierProduit.produit.nomProduit}"></td>
                                     <td id="td2" th:text="${panierProduit.produit.prixProduit}"></td>
                                     <td id="td3" th:text="${panierProduit.produit.quantiteEnStockProduit}"></td>
                                     <td>
-                                        <input type="number" class="form-control" th:value="${panierProduit.quantiteProduitEnStock}" min="1" th:max="${panierProduit.produit.quantiteEnStockProduit}">
+                                        <input type="number" class="form-control" th:value="${panierProduit.quantiteProduitEnStockPanier}" min="1" th:max="${panierProduit.produit.quantiteEnStockProduit}">
                                     </td>
+                                    <td>
+                                        <button class="btn btn-delete" th:attr="data-idpanierproduit=${panierProduit.idPanierProduit}">
+                                            <div id="supp"></div>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr th:if="${panierProduits == null || panierProduits.isEmpty()}">
+                                    <td colspan="5">Votre panier est vide.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -58,8 +70,11 @@
                         <p class="card-text">Quantité totale : <span th:text="${quantiteTotalProduitPanier}"></span></p>
                         <p class="card-text">Prix total : <span th:text="${prixTotalPanier}"></span> FCFA</p>
                     </div>
-                    <button class="btn btn-primary btn-block" th:each="panierProduit : ${panierProduits}"
-                            th:attr="data-idpanier=${panierProduit.panier.idPanier}">Commander</button>
+                    <button class="btn btn-primary btn-block" 
+                        th:if="${panierProduits != null && !panierProduits.isEmpty()}"
+                        th:attr="data-idpanier=${panierProduits[0].panier.idPanier}, data-idpanierproduit=${panierProduits[0].idPanierProduit}">
+                        Commander
+                    </button>
                 </div>
             </div>
         </div>

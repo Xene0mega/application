@@ -1,52 +1,62 @@
+html, body {
+    height: 100%;
+}
+
 body {
-   
- 
+    
     padding: 0;
     margin: 0;
 }
 
 .header {
-	background-color: #333333;
+    background-color: #333333;
     color: #fff;
     padding: 20px;
     text-align: center;
     position: relative;
-    top:-15px;
+    top: -15px;
 }
-.titre1{
-	position: relative;
-	top: -20px;
-	left: 85px;
+
+.titre1 {
+    position: relative;
+    top: -20px;
+    left: 85px;
 }
+
 .header .marketplace {
     margin: 0 auto;
     max-width: 800px;
 }
-#td1{
-	color: blue;
+
+#td1 {
+    color: blue;
 }
-#td2{
-	color: red;
+
+#td2 {
+    color: red;
 }
-#td3{
-	color: green;
+
+#td3 {
+    color: green;
 }
-.col-md-8{
-	position: relative;
-	left:-290px;
+
+.col-md-8 {
+    position: relative;
+    left: -290px;
 }
-.col-md-4{
-		position: relative;
-	    left: 790px;
-	    top:-230px;
-	    padding-bottom: 100px;
-	    margin-right: 520px;
-	    
+
+.col-md-4 {
+    position: relative;
+    left: 790px;
+    top: -230px;
+    padding-bottom: 100px;
+    margin-right: 520px;
 }
+
 #p1 {
     margin: 0;
     font-size: 2.5em;
-    color:white;
+    color: white;
 }
 
 #p2 {
@@ -59,20 +69,18 @@ body {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
+    flex: 1;
 }
 
 .card {
     border: none;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-   
-    
 }
 
 .table-custom {
     width: 100%;
     margin-bottom: 1rem;
- 
 }
 
 .table-custom th,
@@ -85,7 +93,6 @@ body {
 .table-custom thead th {
     vertical-align: bottom;
     border-bottom: 1px solid #cccccc;
-    
 }
 
 .table-custom tbody + tbody {
@@ -107,51 +114,63 @@ body {
     background-color: #333333;
     color: #fff;
     border-radius: 10px;
-    padding-bottom:40px;
-    position:relative;
-    top:-0px;
+    padding-bottom: 40px;
+    margin-top: 20px;
+    position: relative;
 }
 
 .foot .card-title,
 .foot .card-text {
-	font-size: 20px;
+    font-size: 20px;
     color: #fff;
 }
 
+#supp {
+    background-color: red;
+    color: red;
+    padding-left: 10px;
+    padding-top: 5px;
+    border-radius: 25px;
+}
+
+.btn-delete {
+    background-color: red;
+    border-radius: 25px;
+}
 
 .btn-primary {
     background-color: blue;
     color: white;
-    margin-top:40px;
+    margin-top: 40px;
     position: absolute;
-    top:150px;
-    height:35px;
-    width:480px;
+    top: 150px;
+    height: 35px;
+    width: 480px;
     border-radius: 20px;
-    
-   
 }
-.footer.btn-primary:hover{
-	 background-color: darkblue;
+
+.footer.btn-primary:hover {
+    background-color: darkblue;
 }
 
 .form-control {
     max-width: 80px;
     margin: 0 auto;
 }
-.card-title{
-	position:relative;
-	left: 20px;
-	top: 10px;
-	
+
+.card-title {
+    position: relative;
+    left: 20px;
+    top: 10px;
 }
 
-.card-text{
-	position:relative;
-	left: 20px;
-	top: 10px;
-    color:blue;
+.card-text {
+    position: relative;
+    left: 20px;
+    top: 10px;
+    color: blue;
 }
-span{
+
+span {
     color: blue;
 }
